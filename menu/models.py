@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 from user.models import CustomUser
 
 class Restaurant(models.Model):
@@ -20,7 +21,7 @@ class Dish(models.Model):
     )
 
     AVAILABILITY_CHOICES = (
-        ('instock', 'In stock'),
+        ('available', 'Available'),
         ('notavailable', 'Not available'),
     )
 
@@ -28,6 +29,7 @@ class Dish(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     category = models.CharField(max_length=31, choices=CATEGORY_CHOICES, null=False, blank=False)
+    photo = models.ImageField(upload_to='dishes/', null=False, blank=True, default='static/img/default-dish.jpg')
 
     def __str__(self):
         return self.name
@@ -36,8 +38,8 @@ class Dish(models.Model):
 class RestaurantDish(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    availability = models.CharField(max_length=31, choices=Dish.AVAILABILITY_CHOICES, default='instock')
+    price = models.DecimalField(max_digits=8, decimal_places=2, validators=[MinValueValidator(0, message="The price cannot be negative.")])
+    availability = models.CharField(max_length=31, choices=Dish.AVAILABILITY_CHOICES, default='available')
 
     def __str__(self):
         return f"{self.dish} in {self.restaurant}: {self.price} UAH. (Availability: {self.get_availability_display()})"
