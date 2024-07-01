@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path
-from main.views import IndexView
+from main.views import MainPageView
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
+    path('', MainPageView.as_view(), name='main-page'),
 ]
 
 app_name = 'main'
