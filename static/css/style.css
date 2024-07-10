@@ -1,0 +1,18 @@
+.navbar-brand img {
+    max-height: 40px;
+    }
+
+    .profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    }
+
+.carousel {
+    height: 500px;
+}
+.carousel-inner img {
+    height: 400px;
+    margin: 0 auto;
+}
