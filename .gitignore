@@ -162,4 +162,4 @@ cython_debug/
 #.idea/
 ТЗ.docx
 Набросок.png
-/media/
+media/*
