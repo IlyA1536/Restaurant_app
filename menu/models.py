@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.db.models import Avg
 from user.models import CustomUser
 
 
@@ -26,6 +27,9 @@ class Dish(models.Model):
     availability = models.CharField(max_length=31, choices=AVAILABILITY_CHOICES, default='available')
     photo = models.ImageField(upload_to='dishes/', null=False, blank=True)
 
+    def average_rating(self):
+        return self.review_set.aggregate(Avg('rating'))['rating__avg'] or 0
+
     def __str__(self):
         return self.name
 
@@ -42,7 +46,7 @@ class Review(models.Model):
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     rating = models.CharField(max_length=1, choices=RATING_CHOICES)
-    text = models.TextField()
+    comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

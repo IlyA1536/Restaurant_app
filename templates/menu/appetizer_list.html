@@ -12,23 +12,24 @@
                 {% else %}
                     <img src="{% static 'img/default-dish.jpg' %}" height="260" alt="Default dish" class="card-img-top" title="Dish">
                 {% endif %}
+
                 <div class="card-body">
                     <h5 class="card-title">{{ dish.name }}</h5>
                     <p class="card-text">
                         <span class="short-description">{{ dish.description|truncatechars:100 }}</span>
                         <span class="full-description d-none">{{ dish.description }}</span>
                     </p>
-                    <a href="#" class="btn btn-outline-primary show-more">Show more</a>
-                    <p class="mt-2">Average rating: {{ dish.average_rating }} / 5</p>
-                    <button class="btn btn-outline-secondary show-comments" data-dish-id="{{ dish.id }}">Show comments</button>
-                    <div class="reviews d-none mt-3" id="reviews-{{ dish.id }}">
-                        {% for review in dish.reviews.all %}
-                        <div class="review mb-2">
-                            <p><strong>{{ review.user.username }}</strong> rated: {{ review.rating }} / 5</p>
-                            <p>{{ review.review }}</p>
-                        </div>
-                        {% endfor %}
+
+                    <div style="float: right; margin-top: -1.5rem;">
+                        <span class="show-more clickable-text">Show more</span>
                     </div>
+
+                    {% if dish.average_rating == 0 %}
+                        <p class="mt-2">Has no rating</p>
+                    {% else %}
+                        <p class="mt-2">Average rating: {{ dish.average_rating }} / 5</p>
+                    {% endif %}
+
                     <p class="availability-text mt-2">
                         {% if dish.availability == "available" %}
                             <span class="text-success">Available</span>
@@ -36,14 +37,43 @@
                             <span class="text-danger">Not available</span>
                         {% endif %}
                     </p>
+
                     <p class="card-text"><strong>₴ {{ dish.price }}</strong></p>
+
+                    <p>
                     {% if user.is_staff %}
                         <div class="admin-buttons">
-                            <a href="{% url 'menu:update_dish' dish.id %}" class="btn btn-info">Update</a>
-                            <a href="{% url 'menu:delete_dish' dish.id %}" class="btn btn-danger">Delete</a>
+                            <a href="{% url 'menu:update-dish' dish.id %}" class="btn btn-info">Update</a>
+                            <a href="{% url 'menu:delete-dish' dish.id %}" class="btn btn-danger">Delete</a>
                         </div>
                     {% endif %}
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </p>
+
+                    <div class="mt-3">
+                        <button class="btn btn-outline-secondary show-comments" data-dish-id="{{ dish.id }}">Show comments</button>
+                        <a href="{% url 'menu:add-review' dish.id %}" class="btn btn-outline-success ml-2">Write a review</a>
+                    </div>
+
+                    <h6 class="mt-3 d-none">Comments:</h6>
+                    <div class="comments d-none" id="comments-{{ dish.id }}">
+                        {% for review in dish.review_set.all %}
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <p>Author: <strong>{{ review.author.username }}</strong></p>
+                                <p>Rated: {{ review.rating }} / 5</p>
+                                <p>{{ review.comment }}</p>
+                                {% if user.is_staff %}
+                                <form method="post" action="{% url 'menu:delete-review' review.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <a href="#" class="btn btn-primary mt-2">Add to Cart</a>
                 </div>
             </div>
         </div>
@@ -71,17 +101,37 @@
             });
         });
 
-        document.querySelectorAll('.show-reviews').forEach(function(button) {
+        document.querySelectorAll('.show-comments').forEach(function(button) {
             button.addEventListener('click', function() {
                 var dishId = this.getAttribute('data-dish-id');
-                var commentsDiv = document.getElementById('reviews-' + dishId);
+                var commentsDiv = document.getElementById('comments-' + dishId);
+                var commentsHeader = commentsDiv.previousElementSibling;
 
                 if (commentsDiv.classList.contains('d-none')) {
                     commentsDiv.classList.remove('d-none');
-                    this.textContent = 'Hide reviews';
+                    commentsHeader.classList.remove('d-none');
+                    this.textContent = 'Hide comments';
                 } else {
                     commentsDiv.classList.add('d-none');
-                    this.textContent = 'Show reviews';
+                    commentsHeader.classList.add('d-none');
+                    this.textContent = 'Show comments';
+                }
+            });
+        });
+
+        document.querySelectorAll('.clickable-text').forEach(function(span) {
+            span.addEventListener('click', function() {
+                var shortDesc = this.parentElement.previousElementSibling.querySelector('.short-description');
+                var fullDesc = this.parentElement.previousElementSibling.querySelector('.full-description');
+
+                if (fullDesc.classList.contains('d-none')) {
+                    fullDesc.classList.remove('d-none');
+                    shortDesc.classList.add('d-none');
+                    this.textContent = 'Show less';
+                } else {
+                    fullDesc.classList.add('d-none');
+                    shortDesc.classList.remove('d-none');
+                    this.textContent = 'Show more';
                 }
             });
         });
