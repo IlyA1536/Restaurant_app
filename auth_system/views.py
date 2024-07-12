@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 from django.contrib.auth import login
 from django.http import HttpResponseRedirect
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from .forms import RegisterForm
 
 
@@ -23,11 +23,6 @@ class RegisterView(FormView):
                 return redirect("auth_system:login")
 
         return super().form_valid(form)
-
-
-class CustomLogoutView(LogoutView):
-    next_page = "auth_system:login"
-
 
 class CustomLoginView(LoginView):
     template_name = "auth_system/login.html"

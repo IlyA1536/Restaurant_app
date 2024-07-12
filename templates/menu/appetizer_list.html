@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">Appetizers</h1>
+    <div class="row">
+        {% for dish in dishes %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                {% if dish.photo %}
+                    <img src="{{ dish.photo.url }}" height="260" class="card-img-top" alt="{{ dish.name }}">
+                {% else %}
+                    <img src="{% static 'img/default-dish.jpg' %}" height="260" alt="Default dish" class="card-img-top" title="Dish">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ dish.name }}</h5>
+                    <p class="card-text">
+                        <span class="short-description">{{ dish.description|truncatechars:100 }}</span>
+                        <span class="full-description d-none">{{ dish.description }}</span>
+                    </p>
+                    <a href="#" class="btn btn-outline-primary show-more">Show more</a>
+                    <p class="mt-2">Average rating: {{ dish.average_rating }} / 5</p>
+                    <button class="btn btn-outline-secondary show-comments" data-dish-id="{{ dish.id }}">Show comments</button>
+                    <div class="reviews d-none mt-3" id="reviews-{{ dish.id }}">
+                        {% for review in dish.reviews.all %}
+                        <div class="review mb-2">
+                            <p><strong>{{ review.user.username }}</strong> rated: {{ review.rating }} / 5</p>
+                            <p>{{ review.review }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <p class="availability-text mt-2">
+                        {% if dish.availability == "available" %}
+                            <span class="text-success">Available</span>
+                        {% else %}
+                            <span class="text-danger">Not available</span>
+                        {% endif %}
+                    </p>
+                    <p class="card-text"><strong>₴ {{ dish.price }}</strong></p>
+                    {% if user.is_staff %}
+                        <div class="admin-buttons">
+                            <a href="{% url 'menu:update_dish' dish.id %}" class="btn btn-info">Update</a>
+                            <a href="{% url 'menu:delete_dish' dish.id %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    {% endif %}
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.show-more').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                var shortDesc = this.previousElementSibling.querySelector('.short-description');
+                var fullDesc = this.previousElementSibling.querySelector('.full-description');
+
+                if (fullDesc.classList.contains('d-none')) {
+                    fullDesc.classList.remove('d-none');
+                    shortDesc.classList.add('d-none');
+                    this.textContent = 'Show less';
+                } else {
+                    fullDesc.classList.add('d-none');
+                    shortDesc.classList.remove('d-none');
+                    this.textContent = 'Show more';
+                }
+            });
+        });
+
+        document.querySelectorAll('.show-reviews').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var dishId = this.getAttribute('data-dish-id');
+                var commentsDiv = document.getElementById('reviews-' + dishId);
+
+                if (commentsDiv.classList.contains('d-none')) {
+                    commentsDiv.classList.remove('d-none');
+                    this.textContent = 'Hide reviews';
+                } else {
+                    commentsDiv.classList.add('d-none');
+                    this.textContent = 'Show reviews';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
