@@ -19,6 +19,51 @@ class SaladsListView(ListView):
     def get_queryset(self):
         return Dish.objects.filter(category='salads')
 
+
+class SoupsListView(ListView):
+    model = Dish
+    template_name = 'menu/soups_list.html'
+    context_object_name = 'dishes'
+
+    def get_queryset(self):
+        return Dish.objects.filter(category='soups')
+
+
+class SideDishesListView(ListView):
+    model = Dish
+    template_name = 'menu/side_dishes_list.html'
+    context_object_name = 'dishes'
+
+    def get_queryset(self):
+        return Dish.objects.filter(category='sidedishes')
+
+
+class DessertsListView(ListView):
+    model = Dish
+    template_name = 'menu/desserts_list.html'
+    context_object_name = 'dishes'
+
+    def get_queryset(self):
+        return Dish.objects.filter(category='desserts')
+
+
+class SoftDrinksListView(ListView):
+    model = Dish
+    template_name = 'menu/soft_drinks_list.html'
+    context_object_name = 'dishes'
+
+    def get_queryset(self):
+        return Dish.objects.filter(category='softdrinks')
+
+
+class AlcoholListView(ListView):
+    model = Dish
+    template_name = 'menu/alcohol_list.html'
+    context_object_name = 'dishes'
+
+    def get_queryset(self):
+        return Dish.objects.filter(category='alcohol')
+
 class DishUpdateView(UpdateView):
     model = Dish
     template_name = 'menu/dish_update.html'
