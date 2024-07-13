@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ dish.name }}</h5>
                     <p class="card-text">
-                        <span class="short-description">{{ dish.description|truncatechars:100 }}</span>
+                        <span class="short-description">{{ dish.description|truncatechars:80 }}</span>
                         <span class="full-description d-none">{{ dish.description }}</span>
                     </p>
 
@@ -38,7 +38,7 @@
                         {% endif %}
                     </p>
 
-                    <p class="card-text"><strong>₴ {{ dish.price }}</strong></p>
+                    <p class="card-text"><strong>$ {{ dish.price }}</strong></p>
 
                     <p>
                     {% if user.is_staff %}
