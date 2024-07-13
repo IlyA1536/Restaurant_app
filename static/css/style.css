@@ -1,6 +1,3 @@
-.navbar-brand img {
-    max-height: 40px;
-}
 
 .profile-image {
 width: 40px;
@@ -20,27 +17,27 @@ object-fit: cover;
 
 .logout-form {
     display: flex;
-    justify-content: flex-end; /* Выравнивание элементов по правому краю */
+    justify-content: flex-end;
 }
 
 .logout-form button {
-    background-color: #db0606; /* Цвет фона кнопки */
-    color: white; /* Цвет текста кнопки */
-    border: none; /* Убираем границы кнопки */
-    padding: 8px 16px; /* Отступы внутри кнопки */
-    cursor: pointer; /* Изменение курсора при наведении */
-    border-radius: 4px; /* Скругление углов кнопки */
-    font-size: 14px; /* Размер шрифта */
+    background-color: #db0606;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
 .logout-form button:hover {
-        background-color: #ff0000; /* Изменение цвета фона при наведении */
+        background-color: #ff0000;
     }
 
 .button-container {
     display: flex;
-    justify-content: space-between; /* Распределение пространства между элементами */
-    align-items: center; /* Выравнивание элементов по вертикали */
+    justify-content: space-between;
+    align-items: center;
 }
 
 .container {
@@ -100,4 +97,8 @@ object-fit: cover;
 
 .show-more:hover {
     text-decoration: underline;
+}
+
+.navbar {
+    background-color: #2e343a;
 }
