@@ -2,29 +2,38 @@ from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
 from .models import Dish, Review
 
-class AppetizerListView(ListView):
+class AppetizersListView(ListView):
     model = Dish
-    template_name = 'menu/appetizer_list.html'
+    template_name = 'menu/appetizers_list.html'
     context_object_name = 'dishes'
 
     def get_queryset(self):
-        return Dish.objects.filter(category='appetizer')
+        return Dish.objects.filter(category='appetizers')
+
+
+class SaladsListView(ListView):
+    model = Dish
+    template_name = 'menu/salads_list.html'
+    context_object_name = 'dishes'
+
+    def get_queryset(self):
+        return Dish.objects.filter(category='salads')
 
 class DishUpdateView(UpdateView):
     model = Dish
     template_name = 'menu/dish_update.html'
     fields = ['name', 'description', 'availability', 'price', 'photo']
-    success_url = reverse_lazy('menu:appetizer-list')
+    success_url = reverse_lazy('main:main-page')
 
 class DishDeleteView(DeleteView):
     model = Dish
     template_name = 'menu/dish_confirm_delete.html'
-    success_url = reverse_lazy('menu:appetizer-list')
+    success_url = reverse_lazy('main:main-page')
 
 
 class ReviewCreateView(CreateView):
     model = Review
-    template_name = 'menu/review_form.html'
+    template_name = 'menu/review/review_form.html'
     fields = ['rating', 'comment']
 
     def form_valid(self, form):
@@ -40,12 +49,12 @@ class ReviewCreateView(CreateView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('menu:appetizer-list')
+        return reverse_lazy('main:main-page')
 
 
 class ReviewDeleteView(DeleteView):
     model = Review
-    template_name = 'menu/review_confirm_delete.html'
+    template_name = 'menu/review/review_confirm_delete.html'
 
     def get_success_url(self):
-        return reverse_lazy('menu:appetizer-list')
+        return reverse_lazy('main:main-page')

@@ -6,7 +6,7 @@ from user.models import CustomUser
 
 class Dish(models.Model):
     CATEGORY_CHOICES = (
-        ('appetizer', 'Appetizer'),
+        ('appetizers', 'Appetizers'),
         ('salads', 'Salads'),
         ('soups', 'Soups'),
         ('sidedishes', 'Side dishes'),
