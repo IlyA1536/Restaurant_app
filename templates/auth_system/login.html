@@ -1,18 +1,21 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
 {% block content %}
-{% load i18n %}
-    <h2>{% trans "Login" %}</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="Username" class="form-label">{{ username }}</label>
-            <input type="text" class="form-control" id="Username" name="username" placeholder="Username" aria-describedby="basic-addon1">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Login</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary btn-block mt-4">Login</button>
+                    </form>
+                    <p>Don't have an account? <a href="{% url 'auth_system:register'%}">Sign up</a></p>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">{{ password }}</label>
-            <input type="password" class="form-control" name="password" placeholder="Password" id="exampleInputPassword1">
-        </div>
-        <button type="submit" class="btn btn-primary">{% trans "Login" %}</button>
-    </form>
-    <p>{% trans "Don't have an account" %}? <a href="{% url 'auth_system:register'%}">{% trans "Sign up" %}</a></p>
+    </div>
+</div>
 {% endblock %}
