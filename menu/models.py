@@ -28,7 +28,8 @@ class Dish(models.Model):
     photo = models.ImageField(upload_to='dishes/', null=False, blank=True)
 
     def average_rating(self):
-        return self.review_set.aggregate(Avg('rating'))['rating__avg'] or 0
+        average = self.review_set.aggregate(Avg('rating'))['rating__avg'] or 0
+        return round(average, 1)
 
     def __str__(self):
         return self.name

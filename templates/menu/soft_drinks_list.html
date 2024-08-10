@@ -76,12 +76,12 @@
                     </div>
 
                     <h6 class="mt-3 d-none">Comments:</h6>
-                    <div class="comments d-none" id="comments-{{ dish.id }}">
+                    <div class="comments d-none" id="comments-{{ dish.id }}" style="max-height: 200px; overflow-y: auto;">
                         {% for review in dish.review_set.all %}
                         <div class="card mb-2">
                             <div class="card-body">
-                                <p>Author: <strong>{{ review.author.username }}</strong></p>
-                                <p>Rated: {{ review.rating }} / 5</p>
+                                <h5>{{ review.author.username }}</h5>
+                                <p>{{ review.rating }} / 5</p>
                                 <p>{{ review.comment }}</p>
                                 {% if user.is_staff %}
                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteReviewModal-{{ review.id }}">Delete</button>
