@@ -72,7 +72,9 @@ class DishUpdateView(UpdateView):
 
 class DishDeleteView(DeleteView):
     model = Dish
-    success_url = reverse_lazy('main:main-page')
+
+    def get_success_url(self):
+        return self.request.META.get('HTTP_REFERER')
 
 
 class ReviewCreateView(CreateView):
@@ -98,4 +100,6 @@ class ReviewCreateView(CreateView):
 
 class ReviewDeleteView(DeleteView):
     model = Review
-    success_url = reverse_lazy('main:main-page')
+
+    def get_success_url(self):
+        return self.request.META.get('HTTP_REFERER')
