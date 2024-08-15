@@ -22,14 +22,14 @@
                 <div class="mb-3">
                     <label for="id_first_name" class="label-large">First name</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ form.first_name.value }}">
+                        <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ form.first_name.value }}" placeholder="Enter your first name">
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="id_last_name" class="label-large">Last name</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ form.last_name.value }}">
+                        <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ form.last_name.value }}" placeholder="Enter your last name">
                     </div>
                 </div>
 
@@ -43,14 +43,19 @@
                 <div class="mb-3">
                     <label for="id_phone_number" class="label-large">Phone number</label>
                     <div class="col-sm-12">
-                        <input type="tel" class="form-control" id="id_phone_number" name="phone_number" value="{{ form.phone_number.value }}">
+                        <div class="input-group">
+                            <span class="input-group-text">+380</span>
+                            <input type="tel" class="form-control" id="id_phone_number" name="phone_number"
+                                value="{{ form.phone_number.value|slice:'4:' }}"
+                                pattern="\d{9}" title="Please enter the last 9 digits of your Ukrainian phone number" maxlength="9">
+                        </div>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="id_address" class="label-large">Address</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="id_address" name="address" value="{{ form.address.value }}">
+                        <input type="text" class="form-control" id="id_address" name="address" value="{{ form.address.value }}" placeholder="Enter your address">
                     </div>
                 </div>
 
