@@ -5,7 +5,7 @@ from django import forms
 class RegisterForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'gender', 'avatar', 'password1', 'password2')
+        fields = ('username', 'email', 'avatar', 'password1', 'password2')
         widgets = {
             'avatar': forms.FileInput()
         }

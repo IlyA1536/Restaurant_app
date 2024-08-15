@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model
 from .forms import CustomUserForm
-
-User = get_user_model()
 
 @login_required
 def profile_view(request):

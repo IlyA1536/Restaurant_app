@@ -102,3 +102,8 @@ object-fit: cover;
 .navbar {
     background-color: #2e343a;
 }
+
+.label-large {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
