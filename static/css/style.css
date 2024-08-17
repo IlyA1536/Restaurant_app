@@ -1,9 +1,7 @@
 
 .profile-image {
-width: 40px;
-height: 40px;
-border-radius: 50%;
-object-fit: cover;
+    width: 300px !important;
+    height: 300px !important;
 }
 
 .carousel {
@@ -45,7 +43,6 @@ object-fit: cover;
 }
 
 .card {
-    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -59,10 +56,6 @@ object-fit: cover;
 .card-img-top {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-}
-
-.card-body {
-    padding: 15px;
 }
 
 .card-title {
@@ -106,4 +99,39 @@ object-fit: cover;
 .label-large {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+.city-column, .address-column, .comment-text{
+    overflow-wrap: break-word;
+}
+.city-column {
+    width: 10%;
+}
+.address-column {
+    width: 10%;
+}
+.comment-text {
+    word-wrap: break-word;
+
+}
+
+.avatar-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.delete-icon {
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.delete-icon:hover {
+    filter: brightness(0) sepia(1) hue-rotate(360deg) brightness(0.9) contrast(1.2);
+    transform: scale(1.1);
 }

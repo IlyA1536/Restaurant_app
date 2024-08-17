@@ -2,67 +2,21 @@ from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
 from .models import Dish, Review
 
-class AppetizersListView(ListView):
+
+class DishListView(ListView):
     model = Dish
-    template_name = 'menu/appetizers_list.html'
+    template_name = 'menu/dish_list.html'
     context_object_name = 'dishes'
 
     def get_queryset(self):
-        return Dish.objects.filter(category='appetizers')
+        self.category = self.kwargs['category']
+        return Dish.objects.filter(category=self.category)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = dict(Dish.CATEGORY_CHOICES).get(self.category, self.category)
+        return context
 
-class SaladsListView(ListView):
-    model = Dish
-    template_name = 'menu/salads_list.html'
-    context_object_name = 'dishes'
-
-    def get_queryset(self):
-        return Dish.objects.filter(category='salads')
-
-
-class SoupsListView(ListView):
-    model = Dish
-    template_name = 'menu/soups_list.html'
-    context_object_name = 'dishes'
-
-    def get_queryset(self):
-        return Dish.objects.filter(category='soups')
-
-
-class SideDishesListView(ListView):
-    model = Dish
-    template_name = 'menu/side_dishes_list.html'
-    context_object_name = 'dishes'
-
-    def get_queryset(self):
-        return Dish.objects.filter(category='sidedishes')
-
-
-class DessertsListView(ListView):
-    model = Dish
-    template_name = 'menu/desserts_list.html'
-    context_object_name = 'dishes'
-
-    def get_queryset(self):
-        return Dish.objects.filter(category='desserts')
-
-
-class SoftDrinksListView(ListView):
-    model = Dish
-    template_name = 'menu/soft_drinks_list.html'
-    context_object_name = 'dishes'
-
-    def get_queryset(self):
-        return Dish.objects.filter(category='softdrinks')
-
-
-class AlcoholListView(ListView):
-    model = Dish
-    template_name = 'menu/alcohol_list.html'
-    context_object_name = 'dishes'
-
-    def get_queryset(self):
-        return Dish.objects.filter(category='alcohol')
 
 class DishUpdateView(UpdateView):
     model = Dish

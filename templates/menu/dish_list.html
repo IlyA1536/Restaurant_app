@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <div class="container">
-    <h1 class="mt-4">Appetizers</h1>
+    <h1 class="mt-4">{{ category }}</h1>
     <div class="row">
         {% for dish in dishes %}
         <div class="col-md-4">
@@ -10,7 +10,7 @@
                 {% if dish.photo %}
                     <img src="{{ dish.photo.url }}" height="260" class="card-img-top" alt="{{ dish.name }}">
                 {% else %}
-                    <img src="{% static 'img/default-dish.jpg' %}" height="260" alt="Default dish" class="card-img-top" title="Dish">
+                    <img src="{% static 'img/Default_dish.jpg' %}" height="260" alt="Default dish" class="card-img-top" title="Dish">
                 {% endif %}
 
                 <div class="card-body">
@@ -72,7 +72,9 @@
 
                     <div class="mt-3">
                         <button class="btn btn-outline-secondary show-comments" data-dish-id="{{ dish.id }}">Show comments</button>
-                        <a href="{% url 'menu:add-review' dish.id %}" class="btn btn-outline-success ml-2">Write a review</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'menu:add-review' dish.id %}" class="btn btn-outline-success ml-2">Write a review</a>
+                        {% endif %}
                     </div>
 
                     <h6 class="mt-3 d-none">Comments:</h6>
@@ -112,7 +114,9 @@
                         {% endfor %}
                     </div>
 
-                    <a href="#" class="btn btn-primary mt-2">Add to Cart</a>
+                    {% if user.is_authenticated %}
+                        <a href="#" class="btn btn-primary mt-2">Add to Cart</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

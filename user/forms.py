@@ -1,11 +1,12 @@
-from django import forms
-from .models import CustomUser
 import re
+from django import forms
+from .models import CustomUser, UserAddress
+
 
 class CustomUserForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['first_name', 'last_name', 'email', 'phone_number', 'address', 'date_of_birth', 'avatar']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'avatar']
         widgets = {
             'avatar': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
@@ -21,3 +22,8 @@ class CustomUserForm(forms.ModelForm):
                 raise forms.ValidationError('Please enter the last 9 digits of your Ukrainian phone number.')
             return f'+380{phone_number}'
         return phone_number
+
+class UserAddressForm(forms.ModelForm):
+    class Meta:
+        model = UserAddress
+        fields = ['city', 'street', 'house_number', 'entrance_number', 'floor_number', 'apartment_number', 'comment']

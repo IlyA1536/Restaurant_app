@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid my-5">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="/user/profile/" class="list-group-item list-group-item-action {% if request.path == '/user/profile/' %}active{% endif %} fs-5">Profile</a>
+                <a href="/user/addresses/" class="list-group-item list-group-item-action {% if request.path == '/user/addresses/' %}active{% endif %} fs-5">Addresses</a>
+                <a href="/user/orders/" class="list-group-item list-group-item-action {% if request.path == '/user/orders/' %}active{% endif %} fs-5">Orders</a>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <h2>Addresses</h2>
+            {% if user_addresses %}
+                <table class="table table-striped" id="address-table">
+                    <thead>
+                        <tr class='fs-5'>
+                            <th scope="col" class="city-column">City</th>
+                            <th scope="col" class="address-column">Street</th>
+                            <th scope="col">House</th>
+                            <th scope="col">Apartment</th>
+                            <th scope="col">Entrance</th>
+                            <th scope="col">Floor</th>
+                            <th scope="col" class="comment-column">Comment</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for address in user_addresses %}
+                        <tr class='align-middle'>
+                            <td class="city-column">{{ address.city }}</td>
+                            <td class="address-column">{{ address.street }}</td>
+                            <td>{{ address.house_number }}</td>
+                            <td>{{ address.apartment_number }}</td>
+                            <td>{{ address.entrance_number }}</td>
+                            <td>{{ address.floor_number }}</td>
+                            <td class="comment-column">
+                                <div class="comment-text" style="max-height: 90px; overflow-y: auto;">
+                                    {{ address.comment }}
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm fs-5" data-bs-toggle="modal" data-bs-target="#editModal-{{ address.id }}">
+                                    <img src="{% static 'img/Edit_icon.png' %}" alt="Edit" class="delete-icon" style="width: 24px; height: 24px;">
+                                </button>
+                                <div class="modal fade" id="editModal-{{ address.id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ address.id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel-{{ address.id }}">Edit address</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="{% url 'edit-address' address.id %}">
+                                                    {% csrf_token %}
+                                                    <div class="mb-3">
+                                                        <label for="edit-city-{{ address.id }}" class="form-label">City<span style="color: red;">*</span></label>
+                                                        <input type="text" class="form-control" id="edit-city-{{ address.id }}" name="city" value="{{ address.city }}" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="edit-street-{{ address.id }}" class="form-label">Street<span style="color: red;">*</span></label>
+                                                        <input type="text" class="form-control" id="edit-street-{{ address.id }}" name="street" value="{{ address.street }}" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="edit-house-number-{{ address.id }}" class="form-label">House number<span style="color: red;">*</span></label>
+                                                        <input type="text" class="form-control" id="edit-house-number-{{ address.id }}" name="house_number" value="{{ address.house_number }}" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="edit-apartment-number-{{ address.id }}" class="form-label">Apartment number</label>
+                                                        <input type="text" class="form-control" id="edit-apartment-number-{{ address.id }}" name="apartment_number" value="{{ address.apartment_number }}">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="edit-entrance-number-{{ address.id }}" class="form-label">Entrance number</label>
+                                                        <input type="text" class="form-control" id="edit-entrance-number-{{ address.id }}" name="entrance_number" value="{{ address.entrance_number }}">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="edit-floor-number-{{ address.id }}" class="form-label">Floor number</label>
+                                                        <input type="text" class="form-control" id="edit-floor-number-{{ address.id }}" name="floor_number" value="{{ address.floor_number }}">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="edit-comment-{{ address.id }}" class="form-label">Comment</label>
+                                                        <textarea class="form-control" id="edit-comment-{{ address.id }}" name="comment" rows="3">{{ address.comment }}</textarea>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-success">Save changes</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm fs-5" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ address.id }}">
+                                    <img src="{% static 'img/Delete_icon.png' %}" alt="Delete" class="delete-icon" style="width: 24px; height: 24px;">
+                                </button>
+
+                                <div class="modal fade" id="deleteModal-{{ address.id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ address.id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel-{{ address.id }}">Confirm deletion</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete this address?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <form method="POST" action="{% url 'delete-address' address.id %}" style="display:inline;">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button id="add-address-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAddressModal">Add address</button>
+            {% else %}
+                <div class="alert alert-info mx-left" role="alert" style="max-width: 600px;">
+                    <h4 class="alert-heading">No addresses found!</h4>
+                    <p>It looks like you haven't added any addresses yet. Would you like to add one now?</p>
+                    <hr>
+                    <button id="add-address-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAddressModal">Add address</button>
+                </div>
+            {% endif %}
+
+            <div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addAddressModalLabel">Add address</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{% url 'add-address' %}" id="add-address-form">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="edit-city-{{ address.id }}" class="form-label">City<span style="color: red;">*</span></label>
+                                    <input type="text" class="form-control" id="edit-city-{{ address.id }}" name="city" value="{{ address.city }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-street-{{ address.id }}" class="form-label">Street<span style="color: red;">*</span></label>
+                                    <input type="text" class="form-control" id="edit-street-{{ address.id }}" name="street" value="{{ address.street }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-house-number-{{ address.id }}" class="form-label">House number<span style="color: red;">*</span></label>
+                                    <input type="text" class="form-control" id="edit-house-number-{{ address.id }}" name="house_number" value="{{ address.house_number }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-apartment-number-{{ address.id }}" class="form-label">Apartment number</label>
+                                    <input type="text" class="form-control" id="edit-apartment-number-{{ address.id }}" name="apartment_number" value="{{ address.apartment_number }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-entrance-number-{{ address.id }}" class="form-label">Entrance number</label>
+                                    <input type="text" class="form-control" id="edit-entrance-number-{{ address.id }}" name="entrance_number" value="{{ address.entrance_number }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-floor-number-{{ address.id }}" class="form-label">Floor number</label>
+                                    <input type="text" class="form-control" id="edit-floor-number-{{ address.id }}" name="floor_number" value="{{ address.floor_number }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-comment-{{ address.id }}" class="form-label">Comment</label>
+                                    <textarea class="form-control" id="edit-comment-{{ address.id }}" name="comment" rows="3">{{ address.comment }}</textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
