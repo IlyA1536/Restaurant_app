@@ -1,64 +1,66 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView, ListView, DeleteView, CreateView
 from .forms import CustomUserForm, UserAddressForm
-from .models import UserAddress
+from .models import UserAddress, CustomUser
 
-@login_required
-def profile_view(request):
-    user = request.user
+class ProfileView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    form_class = CustomUserForm
+    template_name = 'user/profile.html'
+    success_url = reverse_lazy('profile')
 
-    if request.method == 'POST':
-        form = CustomUserForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('profile')
-    else:
-        form = CustomUserForm(instance=user)
+    def get_object(self):
+        return self.request.user
 
-    return render(request, 'user/profile.html', {'form': form})
 
-@login_required
-def addresses_view(request):
-    user_addresses = UserAddress.objects.filter(user=request.user)
-    form = UserAddressForm()
+class AddressesView(LoginRequiredMixin, ListView):
+    model = UserAddress
+    template_name = 'user/addresses.html'
+    context_object_name = 'user_addresses'
 
-    if request.method == 'POST':
+    def get_queryset(self):
+        return UserAddress.objects.filter(user=self.request.user)
+
+    def post(self, request, *args, **kwargs):
         form = UserAddressForm(request.POST)
         if form.is_valid():
             address = form.save(commit=False)
             address.user = request.user
             address.save()
+            return redirect('user-addresses')
+        return self.get(request, *args, **kwargs)
 
-    return render(request, 'user/addresses.html', {'user_addresses': user_addresses, 'form': form})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = UserAddressForm()
+        return context
 
-@login_required
-def delete_address_view(request, pk):
-    address = get_object_or_404(UserAddress, pk=pk, user=request.user)
-    if request.method == 'POST':
-        address.delete()
-        return redirect('addresses')
 
-def edit_address_view(request, pk):
-    address = get_object_or_404(UserAddress, pk=pk)
-    if request.method == 'POST':
-        form = UserAddressForm(request.POST or None, instance=address)
-        if form.is_valid():
-            form.save()
-            return redirect('addresses')
-    else:
-        form = UserAddressForm(instance=address)
+class DeleteAddressView(LoginRequiredMixin, DeleteView):
+    model = UserAddress
+    success_url = reverse_lazy('user-addresses')
 
-    return render(request, 'user/address.html', {'form': form, 'address': address})
+    def get_queryset(self):
+        return UserAddress.objects.filter(user=self.request.user)
 
-def add_address_view(request):
-    if request.method == 'POST':
-        form = UserAddressForm(request.POST)
-        if form.is_valid():
-            address = form.save(commit=False)
-            address.user = request.user
-            address.save()
-            return redirect('addresses')
-        else:
-            form = UserAddressForm()
 
-    return render(request, 'user/address.html', {'form': form})
+class EditAddressView(LoginRequiredMixin, UpdateView):
+    model = UserAddress
+    form_class = UserAddressForm
+    template_name = 'user/address.html'
+    success_url = reverse_lazy('user-addresses')
+
+
+class AddAddressView(LoginRequiredMixin, CreateView):
+    model = UserAddress
+    form_class = UserAddressForm
+    template_name = 'user/address.html'
+    success_url = reverse_lazy('user-addresses')
+
+    def form_valid(self, form):
+        address = form.save(commit=False)
+        address.user = self.request.user
+        address.save()
+        return super().form_valid(form)
