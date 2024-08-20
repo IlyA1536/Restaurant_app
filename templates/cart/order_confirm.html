@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4">Order Confirmed!</h1>
+        <p class="lead">Your order has been successfully placed. Thank you for shopping with us!</p>
+        <div class="mt-4">
+            <a href="{% url 'menu:dish_list_by_category' 'appetizers' %}" class="btn btn-primary btn-lg">Browse More Dishes</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

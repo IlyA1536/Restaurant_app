@@ -57,10 +57,12 @@ class AddAddressView(LoginRequiredMixin, CreateView):
     model = UserAddress
     form_class = UserAddressForm
     template_name = 'user/address.html'
-    success_url = reverse_lazy('user-addresses')
 
     def form_valid(self, form):
         address = form.save(commit=False)
         address.user = self.request.user
         address.save()
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return self.request.META.get('HTTP_REFERER')
