@@ -19,7 +19,7 @@ def home(request):
 class DishCreateView(CreateView):
     model = Dish
     template_name = 'main/dish_form.html'
-    fields = ['name', 'description', 'category','availability', 'price', 'photo']
+    fields = ['name', 'description', 'category','availability', 'price', 'image']
 
     def get_success_url(self):
         return reverse_lazy('main:main-page')

@@ -21,7 +21,7 @@ class DishListView(ListView):
 class DishUpdateView(UpdateView):
     model = Dish
     template_name = 'menu/dish_update.html'
-    fields = ['name', 'description', 'availability', 'price', 'photo']
+    fields = ['name', 'description', 'availability', 'price', 'image']
     success_url = reverse_lazy('main:main-page')
 
 class DishDeleteView(DeleteView):

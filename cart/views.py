@@ -2,11 +2,14 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, View
 from django.contrib import messages
+from django.urls import reverse_lazy
 from django.http import JsonResponse
+
 from .models import Cart, CartItem
 from menu.models import Dish
 from user.models import UserAddress
-from django.urls import reverse_lazy
+from orders.models import Order, OrderItem
+
 
 class CartView(LoginRequiredMixin, TemplateView):
     template_name = 'cart/cart_detail.html'
@@ -95,9 +98,10 @@ class OrderConfirmationView(View):
             return redirect('cart-detail')
 
         if cart:
-            cart.delivery_address = UserAddress.objects.get(id=selected_address_id)
-            cart.save()
+            order = self.save_order_from_cart(cart, selected_address_id)
+
             cart.items.all().delete()
+            cart.delete()
 
         return redirect(reverse_lazy('confirm-order'))
 
@@ -106,3 +110,19 @@ class OrderConfirmationView(View):
 
     def render_to_response(self, context, **response_kwargs):
         return render(self.request, 'cart/order_confirm.html', context, **response_kwargs)
+
+    def save_order_from_cart(self, cart, address_id):
+        order = Order.objects.create(
+            user=cart.user,
+            delivery_address=UserAddress.objects.get(id=address_id),
+            cost=cart.cost,
+        )
+        for item in cart.items.all():
+            OrderItem.objects.create(
+                order=order,
+                dish=item.dish,
+                quantity=item.quantity,
+            )
+        order.is_completed = True
+        order.save()
+        return order

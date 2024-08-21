@@ -25,7 +25,7 @@ class Dish(models.Model):
     category = models.CharField(max_length=31, choices=CATEGORY_CHOICES, null=False, blank=False)
     price = models.DecimalField(max_digits=8, decimal_places=2, validators=[MinValueValidator(0, message="The price cannot be negative.")])
     availability = models.CharField(max_length=31, choices=AVAILABILITY_CHOICES, default='available')
-    photo = models.ImageField(upload_to='dishes/', null=False, blank=True)
+    image = models.ImageField(upload_to='dishes/', null=False, blank=True)
 
     def average_rating(self):
         average = self.review_set.aggregate(Avg('rating'))['rating__avg'] or 0

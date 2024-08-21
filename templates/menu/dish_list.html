@@ -15,8 +15,8 @@
         {% for dish in dishes %}
         <div class="col-md-4">
             <div class="card mb-4">
-                {% if dish.photo %}
-                    <img src="{{ dish.photo.url }}" height="260" class="card-img-top" alt="{{ dish.name }}">
+                {% if dish.image %}
+                    <img src="{{ dish.image.url }}" height="260" class="card-img-top" alt="{{ dish.name }}">
                 {% else %}
                     <img src="{% static 'img/Default_dish.jpg' %}" height="260" alt="Default dish" class="card-img-top" title="Dish">
                 {% endif %}

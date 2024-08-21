@@ -12,38 +12,38 @@
         </div>
 
         <div class="col-md-9">
-            <h2>Addresses</h2>
+            <h2 class="text-center">Addresses</h2>
             {% if user_addresses %}
-                <table class="table table-striped" id="address-table">
+                <table class="table text-center" id="address-table">
                     <thead>
                         <tr class='fs-5'>
-                            <th scope="col" class="city-column">City</th>
-                            <th scope="col" class="address-column">Street</th>
-                            <th scope="col">House</th>
-                            <th scope="col">Apartment</th>
-                            <th scope="col">Entrance</th>
-                            <th scope="col">Floor</th>
-                            <th scope="col" class="comment-column">Comment</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col" class="col-city">City</th>
+                            <th scope="col" class="col-street">Street</th>
+                            <th scope="col" class="col-house">House</th>
+                            <th scope="col" class="col-apartment">Apartment</th>
+                            <th scope="col" class="col-entrance">Entrance</th>
+                            <th scope="col" class="col-floor">Floor</th>
+                            <th scope="col" class="col-comment">Comment</th>
+                            <th scope="col" class="col-address-actions">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for address in user_addresses %}
                         <tr class='align-middle'>
-                            <td class="city-column">{{ address.city }}</td>
-                            <td class="address-column">{{ address.street }}</td>
-                            <td>{{ address.house_number }}</td>
-                            <td>{{ address.apartment_number }}</td>
-                            <td>{{ address.entrance_number }}</td>
-                            <td>{{ address.floor_number }}</td>
-                            <td class="comment-column">
+                            <td class="col-city">{{ address.city }}</td>
+                            <td class="col-street">{{ address.street }}</td>
+                            <td class="col-house">{{ address.house_number }}</td>
+                            <td class="col-apartment">{{ address.apartment_number }}</td>
+                            <td class="col-entrance">{{ address.entrance_number }}</td>
+                            <td class="col-floor">{{ address.floor_number }}</td>
+                            <td class="col-comment">
                                 <div class="comment-text" style="max-height: 90px; overflow-y: auto;">
                                     {{ address.comment }}
                                 </div>
                             </td>
                             <td>
                                 <button class="btn btn-sm fs-5" data-bs-toggle="modal" data-bs-target="#editModal-{{ address.id }}">
-                                    <img src="{% static 'img/Edit_icon.png' %}" alt="Edit" class="delete-icon" style="width: 24px; height: 24px;">
+                                    <img src="{% static 'img/Edit_icon.png' %}" alt="Edit" class="delete-edit-icon" style="width: 24px; height: 24px;">
                                 </button>
                                 <div class="modal fade" id="editModal-{{ address.id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ address.id }}" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -90,7 +90,7 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-sm fs-5" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ address.id }}">
-                                    <img src="{% static 'img/Delete_icon.png' %}" alt="Delete" class="delete-icon" style="width: 24px; height: 24px;">
+                                    <img src="{% static 'img/Delete_icon.png' %}" alt="Delete" class="delete-edit-icon" style="width: 24px; height: 24px;">
                                 </button>
 
                                 <div class="modal fade" id="deleteModal-{{ address.id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ address.id }}" aria-hidden="true">
@@ -120,7 +120,7 @@
                 </table>
                 <button id="add-address-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAddressModal">Add address</button>
             {% else %}
-                <div class="alert alert-info mx-left" role="alert" style="max-width: 600px;">
+                <div class="alert alert-info mx-auto" role="alert" style="max-width: 600px;">
                     <h4 class="alert-heading">No addresses found!</h4>
                     <p>It looks like you haven't added any addresses yet. Would you like to add one now?</p>
                     <hr>

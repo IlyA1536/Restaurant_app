@@ -105,18 +105,31 @@ table {
     table-layout: fixed;
     width: 100%;
 }
-.city-column, .address-column, .comment-text{
-    overflow-wrap: break-word;
-}
-.city-column {
-    width: 10%;
-}
-.address-column {
-    width: 10%;
-}
-.comment-text {
-    word-wrap: break-word;
 
+.col-city {
+    width: 15%;
+}
+.col-street {
+    width: 20%;
+}
+.col-house {
+    width: 8%;
+}
+.col-apartment {
+    width: 8%;
+}
+.col-entrance {
+    width: 8%;
+}
+.col-floor {
+    width: 8%;
+}
+.col-comment {
+    width: 25%;
+    word-wrap: break-word;
+}
+.col-address-actions {
+    width: 8%;
 }
 
 .avatar-img {
@@ -127,11 +140,26 @@ table {
     overflow: hidden;
 }
 
-.delete-icon {
+.delete-edit-icon {
     transition: filter 0.3s ease, transform 0.3s ease;
 }
-
-.delete-icon:hover {
+.delete-edit-icon:hover {
     filter: brightness(0) sepia(1) hue-rotate(360deg) brightness(0.9) contrast(1.2);
     transform: scale(1.1);
+}
+
+.col-id {
+    width: 7%;
+}
+.col-date {
+    width: 20%;
+}
+.col-cost {
+    width: 15%;
+}
+.col-address {
+    width: 45%;
+}
+.col-order-actions {
+    width: 15%;
 }
