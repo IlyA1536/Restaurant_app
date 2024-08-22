@@ -22,7 +22,10 @@ class DishUpdateView(UpdateView):
     model = Dish
     template_name = 'menu/dish_update.html'
     fields = ['name', 'description', 'availability', 'price', 'image']
-    success_url = reverse_lazy('main:main-page')
+
+    def get_success_url(self):
+        category = self.object.category
+        return reverse_lazy('menu:dish_list_by_category', kwargs={'category': category})
 
 class DishDeleteView(DeleteView):
     model = Dish
@@ -33,7 +36,6 @@ class DishDeleteView(DeleteView):
 
 class ReviewCreateView(CreateView):
     model = Review
-    template_name = 'menu/review_form.html'
     fields = ['rating', 'comment']
 
     def form_valid(self, form):
@@ -49,7 +51,7 @@ class ReviewCreateView(CreateView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('main:main-page')
+        return self.request.META.get('HTTP_REFERER')
 
 
 class ReviewDeleteView(DeleteView):

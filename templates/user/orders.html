@@ -78,7 +78,7 @@
                             var detailsHtml = '';
                             $.each(data.items, function(index, item) {
                                 var imageUrl = item.image_url ? item.image_url : "{% static 'img/Default_dish.jpg' %}";
-                                detailsHtml += '<div class="order-item d-flex">';
+                                detailsHtml += '<div class="order-item mb-3 d-flex">';
                                 detailsHtml += '<img src="' + imageUrl + '" class="img-thumbnail me-3" width="80">';
                                 detailsHtml += '<div>';
                                 detailsHtml += '<div><strong>' + item.name + '</strong></div>';
