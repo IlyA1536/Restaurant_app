@@ -38,14 +38,14 @@
             <input type="file" id="{{ form.image.id_for_label }}" name="{{ form.image.html_name }}" class="form-control">
         </div>
 
-            {% if dish.image %}
-                <div class="mb-3">
-                    <input type="checkbox" class="btn-check" name="image-clear" id="image-clear" autocomplete="off">
-                    <label class="btn btn-outline-danger" for="image-clear">Delete image</label>
-                </div>
-            {% endif %}
+        {% if dish.image %}
+            <div class="mb-3">
+                <input type="checkbox" class="btn-check" name="image-clear" id="image-clear" autocomplete="off">
+                <label class="btn btn-outline-danger" for="image-clear">Delete image</label>
+            </div>
+        {% endif %}
 
-            <button type="submit" class="btn btn-primary">Update Dish</button>
-        </form>
-    </div>
+        <button type="submit" class="btn btn-primary">Update Dish</button>
+    </form>
+</div>
 {% endblock %}

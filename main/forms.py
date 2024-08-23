@@ -1,6 +1,7 @@
 from django import forms
 from menu.models import Dish
 
+
 class ManageRecommendedDishesForm(forms.Form):
     recommended_dishes = forms.ModelMultipleChoiceField(
         queryset=Dish.objects.all(),
