@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
 <div class="container mt-4">
-    <h2 class="mb-4">Manage recommended dishes</h2>
+    <h2 class="mb-4">{% trans "Manage recommended dishes" %}</h2>
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -11,7 +12,7 @@
                 </div>
             {% endfor %}
         </div>
-        <button type="submit" class="btn btn-success">Save changes</button>
+        <button type="submit" class="btn btn-success">{% trans "Save changes" %}</button>
     </form>
 </div>
 {% endblock %}

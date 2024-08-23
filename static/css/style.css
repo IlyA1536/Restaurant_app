@@ -148,7 +148,7 @@ table {
 }
 
 .col-id {
-    width: 7%;
+    width: 13%;
 }
 .col-date {
     width: 20%;
@@ -157,13 +157,19 @@ table {
     width: 15%;
 }
 .col-address {
-    width: 45%;
+    width: 40%;
 }
 .col-order-actions {
-    width: 15%;
+    width: 22%;
 }
 
 .rating img {
     width: 24px;
     height: 24px;
+}
+
+.dropdown-item img {
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
 }

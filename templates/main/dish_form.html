@@ -1,45 +1,46 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1 class="mb-4 text-center">Add new dish</h1>
+            <h1 class="mb-4 text-center">{% trans "Add new dish" %}</h1>
             <div class="card shadow-sm">
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
+
                         <div class="form-group mb-3">
-                            {{ form.name.label_tag }}
+                            <label for="{{ form.name.id_for_label }}"><strong>{% trans "Name" %}:</strong></label>
                             {{ form.name }}
                         </div>
 
                         <div class="form-group mb-3">
-                            {{ form.description.label_tag }}
+                            <label for="{{ form.description.id_for_label }}"><strong>{% trans "Description" %}:</strong></label>
                             {{ form.description }}
                         </div>
 
                         <div class="form-group mb-3">
-                            {{ form.category.label_tag }}
+                            <label for="{{ form.category.id_for_label }}"><strong>{% trans "Category" %}:</strong></label>
                             {{ form.category }}
                         </div>
 
                         <div class="form-group mb-3">
-                            {{ form.price.label_tag }}
+                            <label for="{{ form.price.id_for_label }}"><strong>{% trans "Price" %}:</strong></label>
                             {{ form.price }}
                         </div>
 
                         <div class="form-group mb-3">
-                            {{ form.availability.label_tag }}
+                            <label for="{{ form.availability.id_for_label }}"><strong>{% trans "Availability" %}:</strong></label>
                             {{ form.availability }}
                         </div>
 
                         <div class="form-group mb-3">
-                            {{ form.image.label_tag }}
+                            <label for="{{ form.image.id_for_label }}"><strong>{% trans "Image" %}:</strong></label>
                             {{ form.image }}
                         </div>
 
-                        <button type="submit" class="btn btn-success w-100">Save</button>
+                        <button type="submit" class="btn btn-success w-100">{% trans "Save" %}</button>
                     </form>
                 </div>
             </div>

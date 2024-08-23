@@ -21,11 +21,12 @@ class DishListView(ListView):
 class DishUpdateView(UpdateView):
     model = Dish
     template_name = 'menu/dish_update.html'
-    fields = ['name', 'description', 'availability', 'price', 'image']
+    fields = ['name', 'description', 'category', 'price', 'availability', 'image']
 
     def get_success_url(self):
         category = self.object.category
         return reverse_lazy('menu:dish_list_by_category', kwargs={'category': category})
+
 
 class DishDeleteView(DeleteView):
     model = Dish

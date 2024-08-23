@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <div class="modal fade" id="dishModal-{{ dish.id }}" tabindex="-1" aria-labelledby="dishModalLabel-{{ dish.id }}" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -18,41 +19,41 @@
                     </div>
 
                     <div class="col-md-7">
-                        <p><strong>Ingredients:</strong></p>
+                        <p><strong>{% trans "Ingredients" %}:</strong></p>
                         <p>{{ dish.description }}</p>
                         <p class="availability-text">
                             {% if dish.availability == "available" %}
-                                <span class="text-success">Available</span>
+                                <span class="text-success"><strong>{% trans "Available" %}</strong></span>
                             {% else %}
-                                <span class="text-danger">Not available</span>
+                                <span class="text-danger"><strong>{% trans "Not available" %}</strong></span>
                             {% endif %}
                         </p>
-                        <p><strong>{{ dish.price }} uah</strong></p>
+                        <p><strong>{{ dish.price }} {% trans "uah" %}</strong></p>
                         <p>
                             {% if dish.average_rating == 0 %}
-                                Has no rating
+                                {% trans "Has no rating" %}
                             {% else %}
-                                Rating: {{ dish.average_rating }} / 5
+                                {% trans "Rating" %}: {{ dish.average_rating }} / 5
                             {% endif %}
                         </p>
 
                         {% if user.is_staff %}
                             <div class="d-flex">
-                                <a href="{% url 'menu:update-dish' dish.id %}" class="btn btn-info me-2">Update</a>
+                                <a href="{% url 'menu:update-dish' dish.id %}" class="btn btn-info me-2">{% trans "Update" %}</a>
                                 <form method="post" action="{% url 'menu:delete-dish' dish.id %}">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
                                 </form>
                             </div>
                         {% endif %}
                     </div>
 
-                    <h5>Comments:</h5>
+                    <h5>{% trans "Comments" %}:</h5>
                     {% if user.is_authenticated %}
                         <form action="{% url 'menu:add-review' dish.id %}" method="post">
                             {% csrf_token %}
                             <div class="mb-3">
-                                <label for="rating" class="form-label">Your rating:</label>
+                                <label for="rating" class="form-label">{% trans "Your rating" %}:</label>
                                 <select class="form-select" id="rating" name="rating" required>
                                     <option value="5">5</option>
                                     <option value="4">4</option>
@@ -62,10 +63,10 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="comment" class="form-label">Your comment:</label>
+                                <label for="comment" class="form-label">{% trans "Your comment" %}:</label>
                                 <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-success mb-3">Submit</button>
+                            <button type="submit" class="btn btn-success mb-3">{% trans "Submit" %}</button>
                         </form>
                     {% endif %}
 

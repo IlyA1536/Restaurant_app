@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 <div class="container">
     {% if messages %}
@@ -10,7 +11,7 @@
         </div>
     {% endif %}
 
-    <h1 class="mt-4">{{ category }}</h1>
+    <h1 class="mt-4">{% trans category %}</h1>
     <div class="row">
         {% for dish in dishes %}
         <div class="col-md-4">
@@ -24,28 +25,28 @@
                     <h5 class="card-title">{{ dish.name }}</h5>
                     <p>
                         {% if dish.average_rating == 0 %}
-                            Has no rating
+                            {% trans "Has no rating" %}
                         {% else %}
-                            Rating: {{ dish.average_rating }} / 5
+                            {% trans "Rating" %}: {{ dish.average_rating }} / 5
                         {% endif %}
                     </p>
-                    <p class="card-text"><strong>{{ dish.price }} uah</strong></p>
+                    <p class="card-text"><strong>{{ dish.price }} {% trans "uah" %}</strong></p>
                     {% if user.is_authenticated %}
                         {% if dish.availability == "available" %}
                             <form action="{% url 'cart-add-item' %}" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="dish_id" value="{{ dish.id }}">
-                                <button type="submit" class="btn btn-primary mt-2">Add to Cart</button>
+                                <button type="submit" class="btn btn-primary mt-2">{% trans "Add to Cart" %}</button>
                             </form>
                         {% else %}
-                            <span class="text-danger"><strong><br>Not available</strong></span>
+                            <span class="text-danger"><strong><br>{% trans "Not available" %}</strong></span>
                         {% endif %}
                     {% else %}
                         {% if dish.availability == "available" %}
-                            <span class="text-success"><strong>Available</strong></span>
-                            <text><br>Please <a href="{% url 'auth_system:login' %}">log in</a> to add this item to your cart.</text>
+                            <span class="text-success"><strong>{% trans "Available" %}</strong></span>
+                            <text><br>{% trans "Please" %} <a href="{% url 'auth_system:login' %}">{% trans "log in" %}</a> {% trans "to add this item to your cart." %}</text>
                         {% else %}
-                            <span class="text-danger"><strong><br>Not available</strong></span>
+                            <span class="text-danger"><strong><br>{% trans "Not available" %}</strong></span>
                         {% endif %}
                     {% endif %}
                 </div>

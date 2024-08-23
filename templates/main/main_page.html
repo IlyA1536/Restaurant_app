@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
 {% if carousel_images %}
-<div class="container mt-4">
-    <div id="carouselExampleIndicators" class="carousel slide mx-auto" style="max-width: 90%; border-radius: 15px; overflow: hidden;" data-bs-ride="carousel">
+<div class="container">
+    <div id="carouselExampleIndicators" class="carousel slide mx-auto" style="max-width: 100%; border-radius: 15px; overflow: hidden;" data-bs-ride="carousel">
         <div class="carousel-indicators">
             {% for image in carousel_images %}
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %} aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
@@ -19,11 +19,11 @@
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+            <span class="visually-hidden">{% trans "Previous" %}</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+            <span class="visually-hidden">{% trans "Next" %}</span>
         </button>
     </div>
 </div>
@@ -32,16 +32,16 @@
 <div class="container mt-3">
     <div class="d-flex justify-content-end">
         {% if user.is_staff %}
-            <a href="{% url 'main:manage_carousel' %}" class="btn btn-primary">Manage carousel</a>
+            <a href="{% url 'main:manage_carousel' %}" class="btn btn-primary">{% trans "Manage carousel" %}</a>
         {% endif %}
     </div>
 </div>
 
 <div class="container mt-3">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Recommended dishes</h2>
+        <h2>{% trans "Recommended dishes" %}</h2>
         {% if user.is_staff %}
-            <a href="{% url 'main:manage_recommended_dishes' %}" class="btn btn-primary">Manage recommended dishes</a>
+            <a href="{% url 'main:manage_recommended_dishes' %}" class="btn btn-primary">{% trans "Manage recommended dishes" %}</a>
         {% endif %}
     </div>
 
@@ -60,30 +60,30 @@
 
                     <p>
                         {% if dish.average_rating == 0 %}
-                            Has no rating
+                            {% trans "Has no rating" %}
                         {% else %}
-                            Rating: {{ dish.average_rating }} / 5
+                            {% trans "Rating" %}: {{ dish.average_rating }} / 5
                         {% endif %}
                     </p>
 
-                    <p class="card-text"><strong>{{ dish.price }} uah</strong></p>
+                    <p class="card-text"><strong>{{ dish.price }} {% trans "uah" %}</strong></p>
 
                     {% if user.is_authenticated %}
                         {% if dish.availability == "available" %}
                             <form action="{% url 'cart-add-item' %}" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="dish_id" value="{{ dish.id }}">
-                                <button type="submit" class="btn btn-primary mt-2">Add to Cart</button>
+                                <button type="submit" class="btn btn-primary mt-2">{% trans "Add to Cart" %}</button>
                             </form>
                         {% else %}
-                            <span class="text-danger"><strong><br>Not available</strong></span>
+                            <span class="text-danger"><strong><br>{% trans "Not available" %}</strong></span>
                         {% endif %}
                     {% else %}
                         {% if dish.availability == "available" %}
-                            <span class="text-success"><strong>Available</strong></span>
-                            <text><br>Please <a href="{% url 'auth_system:login' %}">log in</a> to add this item to your cart.</text>
+                            <span class="text-success"><strong>{% trans "Available" %}</strong></span>
+                            <text><br>{% trans "Please" %} <a href="{% url 'auth_system:login' %}">{% trans "log in" %}</a> {% trans "to add this item to your cart." %}</text>
                         {% else %}
-                            <span class="text-danger"><strong><br>Not available</strong></span>
+                            <span class="text-danger"><strong><br>{% trans "Not available" %}</strong></span>
                         {% endif %}
                     {% endif %}
                 </div>

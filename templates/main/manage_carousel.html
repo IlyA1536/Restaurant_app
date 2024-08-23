@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Manage carousel images</h2>
+    <h2>{% trans "Manage carousel images" %}</h2>
 
     <form method="post" action="{% url 'main:add_carousel_image' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="image" class="form-label">Upload new image</label>
+            <label for="image" class="form-label">{% trans "Upload new image" %}</label>
             <input type="file" class="form-control" id="image" name="image" required>
         </div>
-        <button type="submit" class="btn btn-success">Add image</button>
+        <button type="submit" class="btn btn-success">{% trans "Add image" %}</button>
     </form>
 
     <div class="row mt-4">
@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <form method="post" action="{% url 'main:delete_carousel_image' image.id %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
                     </form>
                 </div>
             </div>
