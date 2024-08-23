@@ -29,7 +29,7 @@
                             <tr class='align-middle text-center'>
                                 <td class="col-id">{{ order.id }}</td>
                                 <td class="col-date">{{ order.created_at|date:"d M Y, H:i" }}</td>
-                                <td class="col-cost">${{ order.get_total_price }}</td>
+                                <td class="col-cost">{{ order.cost }} uah</td>
                                 <td class="col-address">{{ order.delivery_address }}</td>
                                 <td class="col-order-actions">
                                     <button class="btn btn-secondary btn-sm show-details" data-order-id="{{ order.id }}">Details</button>

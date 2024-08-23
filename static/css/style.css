@@ -162,3 +162,8 @@ table {
 .col-order-actions {
     width: 15%;
 }
+
+.rating img {
+    width: 24px;
+    height: 24px;
+}

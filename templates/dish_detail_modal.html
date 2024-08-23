@@ -1,0 +1,96 @@
+{% load static %}
+<div class="modal fade" id="dishModal-{{ dish.id }}" tabindex="-1" aria-labelledby="dishModalLabel-{{ dish.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dishModalLabel-{{ dish.id }}">{{ dish.name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row" style="font-size: 18px;">
+                    <div class="col-md-5">
+                        {% if dish.image %}
+                            <img src="{{ dish.image.url }}" class="img-fluid mb-3" alt="{{ dish.name }}">
+                        {% else %}
+                            <img src="{% static 'img/Default_dish.jpg' %}" class="img-fluid mb-3" alt="Default dish">
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-7">
+                        <p><strong>Ingredients:</strong></p>
+                        <p>{{ dish.description }}</p>
+                        <p class="availability-text">
+                            {% if dish.availability == "available" %}
+                                <span class="text-success">Available</span>
+                            {% else %}
+                                <span class="text-danger">Not available</span>
+                            {% endif %}
+                        </p>
+                        <p><strong>{{ dish.price }} uah</strong></p>
+                        <p>
+                            {% if dish.average_rating == 0 %}
+                                Has no rating
+                            {% else %}
+                                Rating: {{ dish.average_rating }} / 5
+                            {% endif %}
+                        </p>
+
+                        {% if user.is_staff %}
+                            <div class="d-flex">
+                                <a href="{% url 'menu:update-dish' dish.id %}" class="btn btn-info me-2">Update</a>
+                                <form method="post" action="{% url 'menu:delete-dish' dish.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <h5>Comments:</h5>
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'menu:add-review' dish.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">Your rating:</label>
+                                <select class="form-select" id="rating" name="rating" required>
+                                    <option value="5">5</option>
+                                    <option value="4">4</option>
+                                    <option value="3">3</option>
+                                    <option value="2">2</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="comment" class="form-label">Your comment:</label>
+                                <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success mb-3">Submit</button>
+                        </form>
+                    {% endif %}
+
+                    <div>
+                        {% for review in dish.review_set.all %}
+                            <div class="comment mb-3">
+                                <p><strong>{{ review.author.username }}</strong></p>
+                                <p>{{ review.rating }} / 5</p>
+                                <p>{{ review.comment }}</p>
+                                {% if user == review.author or user.is_staff %}
+                                    <form method="post" action="{% url 'menu:delete-review' review.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

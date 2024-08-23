@@ -24,6 +24,7 @@ class RegisterView(FormView):
 
         return super().form_valid(form)
 
+
 class CustomLoginView(LoginView):
     template_name = "auth_system/login.html"
     redirect_authenticated_user = True
