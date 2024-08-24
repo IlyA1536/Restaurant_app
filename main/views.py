@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic import CreateView, FormView, ListView, DeleteView
 from django.urls import reverse_lazy
@@ -12,7 +11,8 @@ class MainPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['recommended_dishes'] = Dish.objects.filter(is_recommended=True)
+        context['recommended_dishes'] = Dish.objects.filter(
+            is_recommended=True)
         context['carousel_images'] = CarouselImage.objects.all()
         return context
 
@@ -20,7 +20,8 @@ class MainPageView(TemplateView):
 class DishCreateView(CreateView):
     model = Dish
     template_name = 'main/dish_form.html'
-    fields = ['name', 'description', 'category','availability', 'price', 'image']
+    fields = ['name', 'description', 'category',
+              'availability', 'price', 'image']
 
     def get_success_url(self):
         return reverse_lazy('main:main-page')

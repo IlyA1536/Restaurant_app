@@ -24,9 +24,12 @@ class Dish(models.Model):
 
     name = I18nCharField(max_length=100, unique=True)
     description = I18nTextField()
-    category = models.CharField(max_length=31, choices=CATEGORY_CHOICES, null=False, blank=False)
-    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0, message="The price cannot be negative.")])
-    availability = models.CharField(max_length=31, choices=AVAILABILITY_CHOICES, default='available')
+    category = models.CharField(
+        max_length=31, choices=CATEGORY_CHOICES, null=False, blank=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[
+                                MinValueValidator(0, message="The price cannot be negative.")])
+    availability = models.CharField(
+        max_length=31, choices=AVAILABILITY_CHOICES, default='available')
     image = models.ImageField(upload_to='dishes/', null=False, blank=True)
     is_recommended = models.BooleanField(default=False)
 

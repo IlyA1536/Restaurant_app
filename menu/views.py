@@ -14,14 +14,16 @@ class DishListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = dict(Dish.CATEGORY_CHOICES).get(self.category, self.category)
+        context['category'] = dict(Dish.CATEGORY_CHOICES).get(
+            self.category, self.category)
         return context
 
 
 class DishUpdateView(UpdateView):
     model = Dish
     template_name = 'menu/dish_update.html'
-    fields = ['name', 'description', 'category', 'price', 'availability', 'image']
+    fields = ['name', 'description', 'category',
+              'price', 'availability', 'image']
 
     def get_success_url(self):
         category = self.object.category

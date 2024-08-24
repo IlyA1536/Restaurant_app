@@ -16,7 +16,8 @@ class CartView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        cart = Cart.objects.filter(user=self.request.user, delivery_address=None).first()
+        cart = Cart.objects.filter(
+            user=self.request.user, delivery_address=None).first()
         addresses = UserAddress.objects.filter(user=self.request.user)
         context['cart'] = cart
         context['addresses'] = addresses
@@ -32,12 +33,15 @@ class AddToCartView(LoginRequiredMixin, View):
         dish = get_object_or_404(Dish, id=dish_id)
 
         if dish.availability != "available":
-            messages.error(request, "This dish is not available and cannot be added to the cart.")
+            messages.error(
+                request, "This dish is not available and cannot be added to the cart.")
             return redirect('menu:dish_list_by_category', category=dish.category)
 
-        cart, created = Cart.objects.get_or_create(user=request.user, delivery_address=None)
+        cart, created = Cart.objects.get_or_create(
+            user=request.user, delivery_address=None)
 
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, dish=dish)
+        cart_item, created = CartItem.objects.get_or_create(
+            cart=cart, dish=dish)
         cart_item.quantity += quantity
         cart_item.save()
 
@@ -51,7 +55,8 @@ class RemoveFromCartView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         item_id = request.POST.get('item_id')
 
-        cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+        cart_item = get_object_or_404(
+            CartItem, id=item_id, cart__user=request.user)
         cart = cart_item.cart
 
         cart_item.delete()
@@ -69,13 +74,15 @@ class UpdateCartItemQuantityView(LoginRequiredMixin, View):
 
         if quantity_change:
             quantity_change = int(quantity_change)
-            cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+            cart_item = get_object_or_404(
+                CartItem, id=item_id, cart__user=request.user)
             new_quantity = max(cart_item.quantity + quantity_change, 1)
             cart_item.quantity = new_quantity
             cart_item.save()
 
             cart = cart_item.cart
-            cart.cost = sum(item.get_total_price() for item in cart.items.all())
+            cart.cost = sum(item.get_total_price()
+                            for item in cart.items.all())
             cart.save()
 
         return redirect('cart-detail')
@@ -90,7 +97,8 @@ class UpdateAddressView(LoginRequiredMixin, View):
 
 class OrderConfirmationView(View):
     def post(self, request, *args, **kwargs):
-        cart = Cart.objects.filter(user=request.user, delivery_address=None).first()
+        cart = Cart.objects.filter(
+            user=request.user, delivery_address=None).first()
 
         selected_address_id = request.session.get('selected_address')
 

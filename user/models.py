@@ -9,14 +9,16 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
-    avatar = models.ImageField(upload_to='user_avatars/', blank=True, null=True)
+    avatar = models.ImageField(
+        upload_to='user_avatars/', blank=True, null=True)
 
     def __str__(self):
         return self.username
 
 
 class UserAddress(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='addresses')
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name='addresses')
     city = models.CharField(max_length=63)
     street = models.CharField(max_length=100)
     house_number = models.CharField(max_length=10)

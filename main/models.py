@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.files.storage import default_storage
 
+
 class CarouselImage(models.Model):
     image = models.ImageField(upload_to='carousel/')
 
@@ -9,5 +10,6 @@ class CarouselImage(models.Model):
             default_storage.delete(self.image.name)
 
         super().delete(*args, **kwargs)
+
     def __str__(self):
         return f'Image {self.id}'

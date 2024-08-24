@@ -5,6 +5,7 @@ from django.views.generic import UpdateView, ListView, DeleteView, CreateView
 from .forms import CustomUserForm, UserAddressForm
 from .models import UserAddress, CustomUser
 
+
 class ProfileView(LoginRequiredMixin, UpdateView):
     model = CustomUser
     form_class = CustomUserForm

@@ -325,7 +325,7 @@ msgstr "Ціна"
 
 #: .\templates\main\dish_form.html:34 .\templates\menu\dish_update.html:34
 msgid "Availability"
-msgstr "Доступність"
+msgstr "Наявність"
 
 #: .\templates\main\dish_form.html:39 .\templates\menu\dish_update.html:39
 msgid "Image"

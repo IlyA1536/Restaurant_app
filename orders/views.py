@@ -20,7 +20,8 @@ class OrdersView(LoginRequiredMixin, ListView):
 class RepeatOrderView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         order = get_object_or_404(Order, pk=kwargs['pk'], user=request.user)
-        cart, created = Cart.objects.get_or_create(user=request.user, delivery_address=None)
+        cart, created = Cart.objects.get_or_create(
+            user=request.user, delivery_address=None)
         cart.items.all().delete()
 
         for item in order.items.all():
