@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<div class="container-fluid my-5">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="/user/profile/" class="list-group-item list-group-item-action {% if request.path == '/user/profile/' %}active{% endif %} fs-5">{% trans "Profile" %}</a>
+                <a href="/user/addresses/" class="list-group-item list-group-item-action {% if request.path == '/user/addresses/' %}active{% endif %} fs-5">{% trans "Addresses" %}</a>
+                <a href="/user/orders/" class="list-group-item list-group-item-action {% if request.path == '/user/orders/' %}active{% endif %} fs-5">{% trans "Orders" %}</a>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <h2 class="text-center">{% trans "Addresses" %}</h2>
+            {% if user_addresses %}
+                <table class="table text-center" id="address-table">
+                    <thead>
+                        <tr class='fs-5'>
+                            <th scope="col" class="col-city">{% trans "City" %}</th>
+                            <th scope="col" class="col-street">{% trans "Street" %}</th>
+                            <th scope="col" class="col-house">{% trans "House" %}</th>
+                            <th scope="col" class="col-apartment">{% trans "Apartment" %}</th>
+                            <th scope="col" class="col-entrance">{% trans "Entrance" %}</th>
+                            <th scope="col" class="col-floor">{% trans "Floor" %}</th>
+                            <th scope="col" class="col-comment">{% trans "Comment" %}</th>
+                            <th scope="col" class="col-address-actions">{% trans "Actions" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for address in user_addresses %}
+                        <tr class='align-middle'>
+                            <td class="col-city">{{ address.city }}</td>
+                            <td class="col-street">{{ address.street }}</td>
+                            <td class="col-house">{{ address.house_number }}</td>
+                            <td class="col-apartment">{{ address.apartment_number }}</td>
+                            <td class="col-entrance">{{ address.entrance_number }}</td>
+                            <td class="col-floor">{{ address.floor_number }}</td>
+                            <td class="col-comment">
+                                <div class="comment-text" style="max-height: 90px; overflow-y: auto;">
+                                    {{ address.comment }}
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm fs-5" data-bs-toggle="modal" data-bs-target="#editModal-{{ address.id }}">
+                                    <img src="{% static 'img/Edit_icon.png' %}" alt="Edit" class="delete-edit-icon" style="width: 24px; height: 24px;">
+                                </button>
+
+                                <button class="btn btn-sm fs-5" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ address.id }}">
+                                    <img src="{% static 'img/Delete_icon.png' %}" alt="Delete" class="delete-edit-icon" style="width: 24px; height: 24px;">
+                                </button>
+
+                                <div class="modal fade" id="deleteModal-{{ address.id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ address.id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel-{{ address.id }}">{% trans "Confirm deletion" %}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                {% trans "Are you sure you want to delete this address?" %}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                                                <form method="POST" action="{% url 'delete-address' address.id %}" style="display:inline;">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% include 'edit_address_modal.html' with dish=dish %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button id="add-address-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAddressModal">{% trans "Add address" %}</button>
+            {% else %}
+                <div class="alert alert-info mx-auto" role="alert" style="max-width: 600px;">
+                    <h4 class="alert-heading">{% trans "No addresses found" %}!</h4>
+                    <p>{% trans "It looks like you haven't added any addresses yet. Would you like to add one now?" %}</p>
+                    <hr>
+                    <button id="add-address-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAddressModal">{% trans "Add address" %}</button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% include 'add_address_modal.html' with dish=dish %}
+{% endblock %}

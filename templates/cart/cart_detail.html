@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">{% trans "Cart" %}</h1>
+
+    {% if cart.items.all.count > 0 %}
+        <div class="row">
+            {% for item in cart.items.all %}
+            <div class="col-md-8 mb-4">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-3 d-flex justify-content-center align-items-center">
+                            {% if item.dish.image %}
+                                <img src="{{ item.dish.image.url }}" class="img-fluid card-img" alt="{{ item.dish.name }}" title="{{ item.dish.name }}">
+                            {% else %}
+                                <img src="{% static 'img/Default_dish.jpg' %}" class="img-fluid card-img" alt="Default dish" title="{{ item.dish.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.dish.name }}</h5>
+
+                                <text class="card-text">
+                                    <text>{{ item.dish.description }}</text>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="badge bg-secondary d-flex justify-content-center align-items-center" style="width: 7rem; height: 2rem;">
+                                            <form action="{% url 'cart-update-quantity' %}" method="post" class="d-inline">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="item_id" value="{{ item.id }}">
+                                                <button type="submit" name="quantity_change" value="-1" class="btn btn-secondary btn-sm" style="font-size: 0.9rem; color: black;">
+                                                    -
+                                                </button>
+                                            </form>
+
+                                            <span class="mx-2" style="font-size: 1rem; color: black;">{{ item.quantity }}</span>
+
+                                            <form action="{% url 'cart-update-quantity' %}" method="post" class="d-inline">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="item_id" value="{{ item.id }}">
+                                                <button type="submit" name="quantity_change" value="+1" class="btn btn-secondary btn-sm" style="font-size: 0.9rem; color: black;">
+                                                    +
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                        <text class="card-text mx-2 fw-bold fs-5">{{ item.get_total_price }} {% trans "uah" %}</text>
+
+                                        <form action="{% url 'cart-remove-item' %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                                            <button type="submit" class="btn btn-sm">
+                                                <img src="{% static 'img/Delete_icon.png' %}" alt="Delete" class="delete-icon" style="width: 24px; height: 24px;">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </text>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-4">
+            <h3>{% trans "Select delivery address" %}</h3>
+
+            <form id="address-form" method="post" action="{% url 'update-address' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="addressSelect" class="form-label">{% trans "Choose an existing address" %}:</label>
+                    <select id="addressSelect" name="address" class="form-select">
+                        <option value="">-- {% trans "Select address" %} --</option>
+                        {% for address in addresses %}
+                            <option value="{{ address.id }}">{{ address }}</option>
+                        {% endfor %}
+                        <option value="new">{% trans "Add new address" %}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <h3>{% trans "Total сost" %}: {{ cart.cost }} {% trans "uah" %}</h3>
+
+            <form id="order-form" method="post" action="{% url 'confirm-order' %}">
+                {% csrf_token %}
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary">{% trans "Make an order" %}</button>
+                </div>
+            </form>
+        </div>
+
+    {% else %}
+        <div class="text-center mt-5">
+            <div class="alert alert-info" role="alert">
+                {% trans "Your cart is empty" %}. <a href="{% url 'menu:dish_list_by_category' 'appetizers' %}" class="btn btn-outline-primary">{% trans "Browse dishes" %}</a> {% trans "to add items to your cart." %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+document.getElementById('addressSelect').addEventListener('change', function () {
+	if (this.value === 'new') {
+		var myModal = new bootstrap.Modal(
+			document.getElementById('addAddressModal')
+		)
+		myModal.show()
+	}
+})
+
+document.getElementById('addressSelect').addEventListener('change', function () {
+	var form = document.getElementById('address-form')
+	var addressId = this.value
+
+    if (addressId) {
+		fetch(form.action, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+				'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')
+					.value,
+			},
+			body: new URLSearchParams(new FormData(form)),
+		})
+			.then(response => response.json())
+			.then(data => {
+				if (addressId === 'new') {
+					var myModal = new bootstrap.Modal(
+						document.getElementById('addAddressModal')
+					)
+					myModal.show()
+				} else {
+					console.log('Address selected:', data)
+				}
+			})
+			.catch(error => console.error('Error:', error))
+	}
+})
+document.addEventListener('DOMContentLoaded', function() {
+    const addressForm = document.getElementById('address-form');
+    const orderForm = document.getElementById('order-form');
+
+    orderForm.addEventListener('submit', function(event) {
+        const addressSelect = document.getElementById('addressSelect');
+        if (!addressSelect.value || addressSelect.value === 'new') {
+            event.preventDefault();
+            alert('{% trans "Please select a delivery address before confirming your order" %}.');
+        }
+    });
+});
+</script>
+
+{% include 'add_address_modal.html' with dish=dish %}
+{% endblock content %}

@@ -1,0 +1,175 @@
+.profile-image {
+    width: 300px !important;
+    height: 300px !important;
+}
+
+.carousel {
+    height: 500px;
+}
+
+.carousel-inner img {
+    height: 400px;
+    margin: 0 auto;
+}
+
+.logout-form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logout-form button {
+    background-color: #db0606;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.logout-form button:hover {
+        background-color: #ff0000;
+    }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    padding-top: 20px;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.card-img-top {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.comment {
+    word-wrap: break-word;
+}
+
+.show-more {
+        cursor: pointer;
+        color: #1b83f2;
+    }
+
+.show-more:hover {
+    text-decoration: underline;
+}
+
+.navbar {
+    background-color: #2e343a;
+}
+
+.label-large {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.col-city {
+    width: 15%;
+}
+.col-street {
+    width: 20%;
+}
+.col-house {
+    width: 8%;
+}
+.col-apartment {
+    width: 8%;
+}
+.col-entrance {
+    width: 8%;
+}
+.col-floor {
+    width: 8%;
+}
+.col-comment {
+    width: 25%;
+    word-wrap: break-word;
+}
+.col-address-actions {
+    width: 8%;
+}
+
+.avatar-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.delete-edit-icon {
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+.delete-edit-icon:hover {
+    filter: brightness(0) sepia(1) hue-rotate(360deg) brightness(0.9) contrast(1.2);
+    transform: scale(1.1);
+}
+
+.col-id {
+    width: 13%;
+}
+.col-date {
+    width: 20%;
+}
+.col-cost {
+    width: 15%;
+}
+.col-address {
+    width: 40%;
+}
+.col-order-actions {
+    width: 22%;
+}
+
+.rating img {
+    width: 24px;
+    height: 24px;
+}
+
+.dropdown-item img {
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+}

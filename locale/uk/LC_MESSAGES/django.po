@@ -1,0 +1,550 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-23 20:53+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: .\menu\models.py:11 .\templates\base.html:79
+msgid "Appetizers"
+msgstr "Закуски"
+
+#: .\menu\models.py:12 .\templates\base.html:82
+msgid "Salads"
+msgstr "Салати"
+
+#: .\menu\models.py:13 .\templates\base.html:85
+msgid "Soups"
+msgstr "Супи"
+
+#: .\menu\models.py:14 .\templates\base.html:88
+msgid "Side dishes"
+msgstr "Гарніри"
+
+#: .\menu\models.py:15 .\templates\base.html:91
+msgid "Desserts"
+msgstr "Десерти"
+
+#: .\menu\models.py:16 .\templates\base.html:94
+msgid "Soft drinks"
+msgstr "Безалкогольні напої"
+
+#: .\menu\models.py:17 .\templates\base.html:97
+msgid "Alcohol"
+msgstr "Алкоголь"
+
+#: .\menu\models.py:21 .\templates\dish_detail_modal.html:26
+#: .\templates\main\main_page.html:83 .\templates\menu\dish_list.html:46
+msgid "Available"
+msgstr "В наявності"
+
+#: .\menu\models.py:22 .\templates\dish_detail_modal.html:28
+#: .\templates\main\main_page.html:79 .\templates\main\main_page.html:86
+#: .\templates\menu\dish_list.html:42 .\templates\menu\dish_list.html:49
+msgid "Not available"
+msgstr "Немає в наявності"
+
+#: .\templates\add_address_modal.html:7 .\templates\user\addresses.html:80
+#: .\templates\user\addresses.html:86
+msgid "Add address"
+msgstr "Додати адресу"
+
+#: .\templates\add_address_modal.html:8
+msgid "Close"
+msgstr "Закрити"
+
+#: .\templates\add_address_modal.html:15 .\templates\edit_address_modal.html:15
+#: .\templates\user\addresses.html:21
+msgid "City"
+msgstr "Місто"
+
+#: .\templates\add_address_modal.html:22 .\templates\edit_address_modal.html:20
+#: .\templates\user\addresses.html:22
+msgid "Street"
+msgstr "Вулиця"
+
+#: .\templates\add_address_modal.html:29 .\templates\edit_address_modal.html:25
+msgid "House number"
+msgstr "Номер дому"
+
+#: .\templates\add_address_modal.html:36 .\templates\edit_address_modal.html:30
+#: .\templates\edit_address_modal.html:31
+msgid "Apartment number"
+msgstr "Квартира"
+
+#: .\templates\add_address_modal.html:43 .\templates\edit_address_modal.html:35
+#: .\templates\edit_address_modal.html:36
+msgid "Entrance number"
+msgstr "Під'їзд"
+
+#: .\templates\add_address_modal.html:50 .\templates\edit_address_modal.html:40
+#: .\templates\edit_address_modal.html:41
+msgid "Floor number"
+msgstr "Поверх"
+
+#: .\templates\add_address_modal.html:57 .\templates\edit_address_modal.html:45
+#: .\templates\user\addresses.html:27
+msgid "Comment"
+msgstr "Коментар"
+
+#: .\templates\add_address_modal.html:62 .\templates\main\dish_form.html:43
+msgid "Save"
+msgstr "Зберегти"
+
+#: .\templates\auth_system\login.html:9 .\templates\auth_system\login.html:23
+msgid "Login"
+msgstr "Вхід"
+
+#: .\templates\auth_system\login.html:14
+#: .\templates\auth_system\register.html:14
+msgid "Username"
+msgstr "Логін"
+
+#: .\templates\auth_system\login.html:19
+#: .\templates\auth_system\register.html:24
+msgid "Password"
+msgstr "Пароль"
+
+#: .\templates\auth_system\login.html:26
+msgid "Don't have an account"
+msgstr "Немає облікового запису"
+
+#: .\templates\auth_system\login.html:26
+#: .\templates\auth_system\register.html:9
+#: .\templates\auth_system\register.html:37
+msgid "Register"
+msgstr "Реєстрація"
+
+#: .\templates\auth_system\register.html:15
+msgid "Enter your username"
+msgstr "Введіть свій логін"
+
+#: .\templates\auth_system\register.html:19
+msgid "Email"
+msgstr "Ел. пошта"
+
+#: .\templates\auth_system\register.html:25
+msgid "Enter your password"
+msgstr "Введіть свій пароль"
+
+#: .\templates\auth_system\register.html:27
+msgid ""
+"Your password must be at least 8 characters long, include an uppercase "
+"letter, a lowercase letter, and a number."
+msgstr ""
+"Ваш пароль має містити принаймні 8 символів, включати велику літеру, малу "
+"літеру та цифру."
+
+#: .\templates\auth_system\register.html:33
+msgid "Password сonfirmation"
+msgstr "Підтвердження пароля"
+
+#: .\templates\auth_system\register.html:34
+msgid "Confirm your password"
+msgstr "Підтвердьте свій пароль"
+
+#: .\templates\base.html:71
+msgid "Login/Register"
+msgstr "Вхід/Реєстрація"
+
+#: .\templates\base.html:101
+msgid "Add Dish"
+msgstr "Додати страву"
+
+#: .\templates\base.html:114
+msgid "All rights reserved"
+msgstr "Усі права захищено"
+
+#: .\templates\base.html:115
+msgid "Tarasa Shevchenko Street 5, Kyiv, Ukraine"
+msgstr "вул. Тараса Шевченка 5, м. Київ, Україна"
+
+#: .\templates\base.html:116
+msgid "Phone"
+msgstr "Телефон"
+
+#: .\templates\cart\cart_detail.html:6
+msgid "Cart"
+msgstr "Кошик"
+
+#: .\templates\cart\cart_detail.html:49 .\templates\cart\cart_detail.html:87
+#: .\templates\dish_detail_modal.html:31 .\templates\main\main_page.html:69
+#: .\templates\menu\dish_list.html:33 .\templates\user\orders.html:33
+#: .\templates\user\orders.html:87
+msgid "uah"
+msgstr "грн"
+
+#: .\templates\cart\cart_detail.html:69
+msgid "Select delivery address"
+msgstr "Виберіть адресу доставки"
+
+#: .\templates\cart\cart_detail.html:74
+msgid "Choose an existing address"
+msgstr "Виберіть наявну адресу"
+
+#: .\templates\cart\cart_detail.html:76
+msgid "Select address"
+msgstr "Виберіть адресу"
+
+#: .\templates\cart\cart_detail.html:80
+msgid "Add new address"
+msgstr "Додати нову адресу"
+
+#: .\templates\cart\cart_detail.html:87
+msgid "Total сost"
+msgstr "Сума"
+
+#: .\templates\cart\cart_detail.html:92
+msgid "Make an order"
+msgstr "Зробіть замовлення"
+
+#: .\templates\cart\cart_detail.html:100
+msgid "Your cart is empty"
+msgstr "Ваш кошик пустий"
+
+#: .\templates\cart\cart_detail.html:100
+msgid "Browse dishes"
+msgstr "Перегляньте страви"
+
+#: .\templates\cart\cart_detail.html:100
+msgid "to add items to your cart."
+msgstr "щоб додати товари до кошика."
+
+#: .\templates\cart\cart_detail.html:152
+msgid "Please select a delivery address before confirming your order"
+msgstr "Перш ніж підтвердити замовлення, виберіть адресу доставки"
+
+#: .\templates\cart\order_confirm.html:7
+msgid "Order confirmed"
+msgstr "Замовлення підтверджено"
+
+#: .\templates\cart\order_confirm.html:8
+msgid "Your order has been successfully placed. Thank you for shopping with us"
+msgstr "Ваше замовлення успішно розміщено. Дякуємо за покупки у нас"
+
+#: .\templates\cart\order_confirm.html:10
+msgid "Browse more dishes"
+msgstr "Переглянути більше страв"
+
+#: .\templates\dish_detail_modal.html:22
+msgid "Ingredients"
+msgstr "Інгредієнти"
+
+#: .\templates\dish_detail_modal.html:34 .\templates\main\main_page.html:63
+#: .\templates\menu\dish_list.html:28
+msgid "Has no rating"
+msgstr "Без рейтингу"
+
+#: .\templates\dish_detail_modal.html:36 .\templates\main\main_page.html:65
+#: .\templates\menu\dish_list.html:30
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: .\templates\dish_detail_modal.html:42
+msgid "Update"
+msgstr "Оновити"
+
+#: .\templates\dish_detail_modal.html:45
+#: .\templates\main\manage_carousel.html:24 .\templates\user\addresses.html:68
+msgid "Delete"
+msgstr "Видалити"
+
+#: .\templates\dish_detail_modal.html:51
+msgid "Comments"
+msgstr "Коментарі"
+
+#: .\templates\dish_detail_modal.html:56
+msgid "Your rating"
+msgstr "Твій рейтинг"
+
+#: .\templates\dish_detail_modal.html:66
+msgid "Your comment"
+msgstr "Твій коментар"
+
+#: .\templates\dish_detail_modal.html:69
+msgid "Submit"
+msgstr "Надіслати"
+
+#: .\templates\edit_address_modal.html:7
+msgid "Edit address"
+msgstr "Редагування адреси"
+
+#: .\templates\edit_address_modal.html:16
+msgid "Enter city"
+msgstr "Місто"
+
+#: .\templates\edit_address_modal.html:21
+msgid "Enter a street"
+msgstr "Вулиця"
+
+#: .\templates\edit_address_modal.html:26
+msgid "Enter house number"
+msgstr "Дім"
+
+#: .\templates\edit_address_modal.html:49
+#: .\templates\main\manage_recommended_dishes.html:15
+msgid "Save changes"
+msgstr "Зберегти зміни"
+
+#: .\templates\main\dish_form.html:7
+msgid "Add new dish"
+msgstr "Додати нову страву"
+
+#: .\templates\main\dish_form.html:14 .\templates\menu\dish_update.html:14
+msgid "Name"
+msgstr "Назва"
+
+#: .\templates\main\dish_form.html:19 .\templates\menu\dish_update.html:19
+msgid "Description"
+msgstr "Опис"
+
+#: .\templates\main\dish_form.html:24 .\templates\menu\dish_update.html:24
+msgid "Category"
+msgstr "Категорія"
+
+#: .\templates\main\dish_form.html:29 .\templates\menu\dish_update.html:29
+#: .\templates\user\orders.html:87
+msgid "Price"
+msgstr "Ціна"
+
+#: .\templates\main\dish_form.html:34 .\templates\menu\dish_update.html:34
+msgid "Availability"
+msgstr "Наявність"
+
+#: .\templates\main\dish_form.html:39 .\templates\menu\dish_update.html:39
+msgid "Image"
+msgstr "Зображення"
+
+#: .\templates\main\main_page.html:22
+msgid "Previous"
+msgstr "Попередній"
+
+#: .\templates\main\main_page.html:26
+msgid "Next"
+msgstr "Наступний"
+
+#: .\templates\main\main_page.html:35
+msgid "Manage carousel"
+msgstr "Керування каруселлю"
+
+#: .\templates\main\main_page.html:42
+msgid "Recommended dishes"
+msgstr "Рекомендованні страви"
+
+#: .\templates\main\main_page.html:44
+#: .\templates\main\manage_recommended_dishes.html:5
+msgid "Manage recommended dishes"
+msgstr "Керування рекомендованими стравами"
+
+#: .\templates\main\main_page.html:76 .\templates\menu\dish_list.html:39
+msgid "Add to Cart"
+msgstr "В кошик"
+
+#: .\templates\main\main_page.html:84 .\templates\menu\dish_list.html:47
+msgid "Please"
+msgstr "Будь ласка,"
+
+#: .\templates\main\main_page.html:84 .\templates\menu\dish_list.html:47
+msgid "log in"
+msgstr "увійдіть"
+
+#: .\templates\main\main_page.html:84 .\templates\menu\dish_list.html:47
+msgid "to add this item to your cart."
+msgstr "щоб додати цей товар у кошик."
+
+#: .\templates\main\manage_carousel.html:5
+msgid "Manage carousel images"
+msgstr "Керування карусельними зображеннями"
+
+#: .\templates\main\manage_carousel.html:10
+msgid "Upload new image"
+msgstr "Завантажте нове зображення"
+
+#: .\templates\main\manage_carousel.html:13
+msgid "Add image"
+msgstr "Додати зображення"
+
+#: .\templates\menu\dish_update.html:7 .\templates\menu\dish_update.html:50
+msgid "Update Dish"
+msgstr "Оновити страву"
+
+#: .\templates\menu\dish_update.html:46
+msgid "Delete image"
+msgstr "Видалити зображення"
+
+#: .\templates\user\addresses.html:9 .\templates\user\orders.html:9
+#: .\templates\user\profile.html:9 .\templates\user\profile.html:17
+msgid "Profile"
+msgstr "Профіль"
+
+#: .\templates\user\addresses.html:10 .\templates\user\addresses.html:16
+#: .\templates\user\orders.html:10 .\templates\user\profile.html:10
+msgid "Addresses"
+msgstr "Адреси"
+
+#: .\templates\user\addresses.html:11 .\templates\user\orders.html:11
+#: .\templates\user\orders.html:16 .\templates\user\profile.html:11
+msgid "Orders"
+msgstr "Замовлення"
+
+#: .\templates\user\addresses.html:23
+msgid "House"
+msgstr "Дім"
+
+#: .\templates\user\addresses.html:24
+msgid "Apartment"
+msgstr "Квартира"
+
+#: .\templates\user\addresses.html:25
+#, fuzzy
+#| msgid "Entrance number"
+msgid "Entrance"
+msgstr "Під'їзд"
+
+#: .\templates\user\addresses.html:26
+msgid "Floor"
+msgstr "Поверх"
+
+#: .\templates\user\addresses.html:28 .\templates\user\orders.html:25
+msgid "Actions"
+msgstr "Дії"
+
+#: .\templates\user\addresses.html:58
+msgid "Confirm deletion"
+msgstr "Підтвердження видалення"
+
+#: .\templates\user\addresses.html:62
+msgid "Are you sure you want to delete this address?"
+msgstr "Ви впевнені, що хочете видалити цю адресу?"
+
+#: .\templates\user\addresses.html:65
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: .\templates\user\addresses.html:83
+msgid "No addresses found"
+msgstr "Адреси не знайдено"
+
+#: .\templates\user\addresses.html:84
+msgid ""
+"It looks like you haven't added any addresses yet. Would you like to add one "
+"now?"
+msgstr "Схоже, ви ще не додали жодної адреси. Хочете додати зараз?"
+
+#: .\templates\user\orders.html:21
+msgid "Order id"
+msgstr "ID замовлення"
+
+#: .\templates\user\orders.html:22
+msgid "Date and time"
+msgstr "Дата і час"
+
+#: .\templates\user\orders.html:23
+#, fuzzy
+#| msgid "Total сost"
+msgid "Total cost"
+msgstr "Сума"
+
+#: .\templates\user\orders.html:24
+msgid "Delivery address"
+msgstr "Адреса доставки"
+
+#: .\templates\user\orders.html:36
+msgid "Details"
+msgstr "Подробиці"
+
+#: .\templates\user\orders.html:39
+msgid "Repeat order"
+msgstr "Повторити замовлення"
+
+#: .\templates\user\orders.html:53
+msgid "No orders found"
+msgstr "Замовлень не знайдено"
+
+#: .\templates\user\orders.html:54
+msgid ""
+"It looks like you haven't placed any orders yet. Would you like to place an "
+"order now?"
+msgstr ""
+"Схоже, ви ще не розмістили жодного замовлення. Чи бажаєте ви розмістити "
+"замовити зараз?"
+
+#: .\templates\user\orders.html:56
+msgid "Place an order"
+msgstr "Оформити замовлення"
+
+#: .\templates\user\orders.html:86
+msgid "Quantity"
+msgstr "Кількість"
+
+#: .\templates\user\profile.html:35
+msgid "First name"
+msgstr "Ім'я"
+
+#: .\templates\user\profile.html:36
+msgid "Enter your first name"
+msgstr "Введіть ім'я"
+
+#: .\templates\user\profile.html:40
+msgid "Last name"
+msgstr "Прізвище"
+
+#: .\templates\user\profile.html:41
+msgid "Enter your last name"
+msgstr "Введіть прізвище"
+
+#: .\templates\user\profile.html:45
+msgid "Email address"
+msgstr "Ел. пошта"
+
+#: .\templates\user\profile.html:50
+msgid "Phone number"
+msgstr "Телефон"
+
+#: .\templates\user\profile.html:53
+msgid "Please enter the last 9 digits of your Ukrainian phone number"
+msgstr "Будь ласка, введіть останні 9 цифр свого українського номера телефону"
+
+#: .\templates\user\profile.html:58
+msgid "Date of Birth"
+msgstr "Дата народження"
+
+#: .\templates\user\profile.html:63
+msgid "Avatar"
+msgstr "Аватар"
+
+#: .\templates\user\profile.html:66
+msgid "Upload"
+msgstr "Завантажити"
+
+#: .\templates\user\profile.html:73
+#, fuzzy
+#| msgid "Delete avatar"
+msgid "Delete Avatar"
+msgstr "Видалити аватар"
+
+#: .\templates\user\profile.html:79
+#, fuzzy
+#| msgid "Save changes"
+msgid "Save Changes"
+msgstr "Зберегти зміни"
+
+#: .\templates\user\profile.html:87
+msgid "Log Out"
+msgstr "Вихід"

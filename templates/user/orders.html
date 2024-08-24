@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<div class="container-fluid my-5">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="/user/profile/" class="list-group-item list-group-item-action {% if request.path == '/user/profile/' %}active{% endif %} fs-5">{% trans "Profile" %}</a>
+                <a href="/user/addresses/" class="list-group-item list-group-item-action {% if request.path == '/user/addresses/' %}active{% endif %} fs-5">{% trans "Addresses" %}</a>
+                <a href="/user/orders/" class="list-group-item list-group-item-action {% if request.path == '/user/orders/' %}active{% endif %} fs-5">{% trans "Orders" %}</a>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <h2 class="text-center">{% trans "Orders" %}</h2>
+            {% if orders %}
+                <table class="table ">
+                    <thead>
+                        <tr class='fs-5 text-center'>
+                            <th scope="col" class="col-id">{% trans "Order id" %}</th>
+                            <th scope="col" class="col-date">{% trans "Date and time" %}</th>
+                            <th scope="col" class="col-cost">{% trans "Total cost" %}</th>
+                            <th scope="col" class="col-address">{% trans "Delivery address" %}</th>
+                            <th scope="col" class="col-order-actions">{% trans "Actions" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr class='align-middle text-center'>
+                                <td class="col-id">{{ order.id }}</td>
+                                <td class="col-date">{{ order.created_at|date:"d M Y, H:i" }}</td>
+                                <td class="col-cost">{{ order.cost }} {% trans "uah" %}</td>
+                                <td class="col-address">{{ order.delivery_address }}</td>
+                                <td class="col-order-actions">
+                                    <button class="btn btn-secondary btn-sm show-details" data-order-id="{{ order.id }}">{% trans "Details" %}</button>
+                                    <form action="{% url 'repeat-order' order.id %}" method="post" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-info btn-sm">{% trans "Repeat order" %}</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr id="order-details-{{ order.id }}" style="display: none;">
+                                <td colspan="5">
+                                    <div class="order-details-container"></div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="alert alert-info mx-auto" role="alert" style="max-width: 600px;">
+                    <h4 class="alert-heading">{% trans "No orders found" %}!</h4>
+                    <p>{% trans "It looks like you haven't placed any orders yet. Would you like to place an order now?" %}</p>
+                    <hr>
+                    <a href="{% url 'menu:dish_list_by_category' 'appetizers' %}" class="btn btn-primary">{% trans "Place an order" %}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.show-details').click(function() {
+            var orderId = $(this).data('order-id');
+            var detailsRow = $('#order-details-' + orderId);
+            var detailsContainer = detailsRow.find('.order-details-container');
+
+            if (detailsRow.is(':visible')) {
+                detailsRow.hide();
+            } else {
+                if (detailsContainer.is(':empty')) {
+                    $.ajax({
+                        url: '{% url "order-details-ajax" %}',
+                        data: {'order_id': orderId},
+                        success: function(data) {
+                            var detailsHtml = '';
+                            $.each(data.items, function(index, item) {
+                                var imageUrl = item.image_url ? item.image_url : "{% static 'img/Default_dish.jpg' %}";
+                                detailsHtml += '<div class="order-item mb-3 d-flex">';
+                                detailsHtml += '<img src="' + imageUrl + '" class="img-thumbnail me-3" width="80">';
+                                detailsHtml += '<div>';
+                                detailsHtml += '<div><strong>' + item.name + '</strong></div>';
+                                detailsHtml += '<div>{% trans "Quantity" %}: ' + item.quantity + '</div>';
+                                detailsHtml += '<div>{% trans "Price" %}: ' + item.total_price + ' {% trans "uah" %}</div>';
+                                detailsHtml += '</div>';
+                                detailsHtml += '</div>';
+                            });
+                            detailsContainer.html(detailsHtml);
+                            detailsRow.show();
+                        }
+                    });
+                } else {
+                    detailsRow.show();
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

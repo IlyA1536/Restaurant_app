@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<div class="container">
+    {% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <h1 class="mt-4">{% trans category %}</h1>
+    <div class="row">
+        {% for dish in dishes %}
+        <div class="col-md-4">
+            <div class="card mb-4" data-bs-toggle="modal" data-bs-target="#dishModal-{{ dish.id }}">
+                {% if dish.image %}
+                    <img src="{{ dish.image.url }}" height="260" class="card-img-top" alt="{{ dish.name }}">
+                {% else %}
+                    <img src="{% static 'img/Default_dish.jpg' %}" height="260" alt="Default dish" class="card-img-top" title="Dish">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ dish.name }}</h5>
+                    <p>
+                        {% if dish.average_rating == 0 %}
+                            {% trans "Has no rating" %}
+                        {% else %}
+                            {% trans "Rating" %}: {{ dish.average_rating }} / 5
+                        {% endif %}
+                    </p>
+                    <p class="card-text"><strong>{{ dish.price }} {% trans "uah" %}</strong></p>
+                    {% if user.is_authenticated %}
+                        {% if dish.availability == "available" %}
+                            <form action="{% url 'cart-add-item' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="dish_id" value="{{ dish.id }}">
+                                <button type="submit" class="btn btn-primary mt-2">{% trans "Add to Cart" %}</button>
+                            </form>
+                        {% else %}
+                            <span class="text-danger"><strong><br>{% trans "Not available" %}</strong></span>
+                        {% endif %}
+                    {% else %}
+                        {% if dish.availability == "available" %}
+                            <span class="text-success"><strong>{% trans "Available" %}</strong></span>
+                            <text><br>{% trans "Please" %} <a href="{% url 'auth_system:login' %}">{% trans "log in" %}</a> {% trans "to add this item to your cart." %}</text>
+                        {% else %}
+                            <span class="text-danger"><strong><br>{% trans "Not available" %}</strong></span>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% include 'dish_detail_modal.html' with dish=dish %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
